@@ -18,6 +18,10 @@ Get the conan package management
 ----
 brew install conan
 ----
+The requirement:
+----
+self.requires("tensorflow-lite/2.12.0")
+----
 Detect the profile
 ----
 conan profile detect
