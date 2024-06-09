@@ -26,6 +26,10 @@ Build the project
 ----
 conan build . --build=missing
 ----
+Build the project debug
+----
+conan build . -s build_type=Debug --build=missing
+----
 
 ## Dependencies
 
