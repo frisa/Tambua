@@ -13,13 +13,13 @@ Following path needs to be applied:
 cd tensorflow_src
 git apply ../Tambua/install.patch
 ----
+Dependencies are following:
+* 
 Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
 ----
 cmake ../tensorflow_src/tensorflow/lite/ \
 -DTFLITE_ENABLE_INSTALL=ON \
 -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
--DSYSTEM_FARMHASH=ON \
--DSYSTEM_PTHREADPOOL=ON \
 -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite 
 ----
 Build the project
