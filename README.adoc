@@ -26,12 +26,16 @@ cd abseil-cpp
 mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
 ----
-## Eigen3
+
+### Eigen3
 Installed by TF
-## Flatbuffers
+
+### Flatbuffers
 Installed by TF
-* Gemmlowp
+
+### Gemmlowp
 Installed by TF
+
 ### NEON2 SSE
 Repository:
 ----
