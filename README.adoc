@@ -16,7 +16,7 @@ git apply ../Tambua/install.patch
 ## Install with conan
 Get the conan package management
 ----
-
+brew install conan
 ----
 Detect the profile
 ----
