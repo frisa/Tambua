@@ -15,7 +15,7 @@ git apply ../Tambua/install.patch
 ----
 Configure tensorflow lite project:
 ----
-cmake ../tensorflow/lite/ \
+cmake ../tensorflow_src/tensorflow/lite/ \
 -D TFLITE_ENABLE_INSTALL=ON \
 -D FETCHCONTENT_FULLY_DISCONNECTED=OFF \
 -D BUILD_SHARED_LIBS=ON \
