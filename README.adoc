@@ -56,6 +56,7 @@ Repository
 ----
 git clone https://chromium.googlesource.com/external/github.com/google/ruy
 ----
+
 build (in repository path)
 ____
 mkdir build
