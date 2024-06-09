@@ -13,17 +13,85 @@ Following path needs to be applied:
 cd tensorflow_src
 git apply ../Tambua/install.patch
 ----
-Configure tensorflow lite project:
+## Dependencies
+
+### Abseil
+Repository:
 ----
-cmake ../tensorflow/lite/ \
--D TFLITE_ENABLE_INSTALL=ON \
--D FETCHCONTENT_FULLY_DISCONNECTED=OFF \
--D BUILD_SHARED_LIBS=ON \
--D CMAKE_FIND_PACKAGE_PREFER_CONFIG=ON
+git clone https://github.com/abseil/abseil-cpp.git
 ----
+Build and install:
+----
+cd abseil-cpp
+mkdir build && cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
+----
+
+### Eigen3
+Installed by TF
+
+### Flatbuffers
+Installed by TF
+
+### Gemmlowp
+Installed by TF
+
+### NEON2 SSE
+Repository:
+----
+https://github.com/intel/ARM_NEON_2_x86_SSE/
+----
+build (in repository path)
+____
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
+cmake --build . -- target install
+____
+* Cpuinfo
+
+### Ruy
+
+Repository:
+----
+git clone https://chromium.googlesource.com/external/github.com/google/ruy
+git submodule update --init
+----
+
+build (in repository path):
+----
+mkdir build2
+cd build2
+cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
+cmake --build . -- target install
+----
+
+## Build TensorFlow Lite Project
+
+Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
+----
+cmake ../tensorflow_src/tensorflow/lite/ \
+-DTFLITE_ENABLE_INSTALL=ON \
+-DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
+-DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite 
+----
+Output
+----
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_flags" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_hash" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_status" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_strings" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_synchronization" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_variant" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "ruy" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "pthreadpool" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "XNNPACK" that is not in any export set.
+----
+
 Build the project
 ----
-make -j $(nproc)
+make -j $(nproc) //Linux
+make -j $(sysctl -n hw.physicalcpu)
 ----
 Install the project
 ----
