@@ -20,9 +20,7 @@ cmake ../tensorflow_src/tensorflow/lite/ \
 -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
 -DBUILD_SHARED_LIBS=ON \
 -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
--DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite \
--DCMAKE_BUILD_TYPE=Release \
--DTFLITE_ENABLE_GPU=OFF
+-DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite 
 ----
 Build the project
 ----
