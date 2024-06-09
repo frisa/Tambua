@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(tambua)
-find_package(tensorflow-lite REQUIRED)
+# Include the Conan toolchain file
+message (STATUS "CMAKE_BINARY_DIR: " ${CMAKE_BINARY_DIR}/ ${CMAKE_BUILD_TYPE}/generators/conan_toolchain.cmake)
 
-add_executable(${PROJECT_NAME} program.cpp)
-target_link_libraries(${PROJECT_NAME} tensorflow-lite)
+find_package(tensorflowlite REQUIRED)
+
+add_executable(${PROJECT_NAME} src/program.cpp)
+target_link_libraries(${PROJECT_NAME} tensorflow::tensorflowlite)
