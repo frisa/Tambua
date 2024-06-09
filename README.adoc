@@ -51,6 +51,8 @@ ____
 * Cpuinfo
 * Ruy
 
+## Build TensorFlow Lite Project
+
 Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
 ----
 cmake ../tensorflow_src/tensorflow/lite/ \
