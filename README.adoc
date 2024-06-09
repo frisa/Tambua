@@ -55,6 +55,7 @@ ____
 Repository:
 ----
 git clone https://chromium.googlesource.com/external/github.com/google/ruy
+git submodule update --init
 ----
 
 build (in repository path):
