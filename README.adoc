@@ -1,0 +1,15 @@
+:toc:
+
+# Tambua
+"Tambua", which is Swahili for "classify" or "identify"?
+
+# Tensorflow Lite
+The library cna be downloaded and build from following link:
+----
+git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
+----
+Following path needs to be applied:
+----
+
+----
+
