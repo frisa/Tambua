@@ -13,13 +13,28 @@ Following path needs to be applied:
 cd tensorflow_src
 git apply ../Tambua/install.patch
 ----
-Dependencies are following:
+## Dependencies
 
-* Abseil
-* Eigen3
-* Flatbuffers
+### Abseil
+
+## Eigen3
+Installed by TF
+## Flatbuffers
+Installed by TF
 * Gemmlowp
-* NEON2 SSE
+Installed by TF
+### NEON2 SSE
+Repository:
+----
+https://github.com/intel/ARM_NEON_2_x86_SSE/
+----
+build (in repository path)
+____
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
+cmake --build . -- target install
+____
 * Cpuinfo
 * Ruy
 
