@@ -30,6 +30,19 @@ cmake ../tensorflow_src/tensorflow/lite/ \
 -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
 -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite 
 ----
+Output
+----
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_flags" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_hash" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_status" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_strings" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_synchronization" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "absl_variant" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "ruy" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "pthreadpool" that is not in any export set.
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "XNNPACK" that is not in any export set.
+----
+
 Build the project
 ----
 make -j $(nproc) //Linux
