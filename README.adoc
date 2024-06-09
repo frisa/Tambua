@@ -59,8 +59,8 @@ git clone https://chromium.googlesource.com/external/github.com/google/ruy
 
 build (in repository path):
 ----
-mkdir build
-cd build
+mkdir build2
+cd build2
 cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
 cmake --build . -- target install
 ----
