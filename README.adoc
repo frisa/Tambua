@@ -14,7 +14,15 @@ cd tensorflow_src
 git apply ../Tambua/install.patch
 ----
 Dependencies are following:
-* 
+
+* Abseil
+* Eigen3
+* Flatbuffers
+* Gemmlowp
+* NEON2 SSE
+* Cpuinfo
+* Ruy
+
 Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
 ----
 cmake ../tensorflow_src/tensorflow/lite/ \
