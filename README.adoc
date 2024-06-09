@@ -10,6 +10,7 @@ git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
 ----
 Following path needs to be applied:
 ----
-git apply install.patch
+cd tensorflow_src
+git apply ../Tambua/install.patch
 ----
 
