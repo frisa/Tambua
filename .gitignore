@@ -44,4 +44,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
-build
+
+# Custom
+tensorflow_build/
+tensorflow_install/
+tensorflow_src/
