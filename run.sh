@@ -19,16 +19,22 @@ fi
 
 cd tensorflow_build
 cmake ../tensorflow_src/tensorflow/lite \
+    -DTFLLITE_ENABLE_INSTALL=ON \
     -DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON \
     -DSYSTEM_FARMHASH=ON \
     -DSYSTEM_PTHREADPOOL=ON \
-    -DTFLLITE_ENABLE_INSTALL=ON \
     -DABSL_PROPAGATE_CXX_STD=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$ROOT_DIR/tensorflow_install \
+    -DTFLITE_ENABLE_RUY=OFF \
+    -DTFLITE_ENABLE_NNAPI=OFF \
+    -DTFLITE_ENABLE_GPU=OFF \
+    -DTFLITE_ENABLE_XNNPACK=OFF \
+    -DTFLITE_ENABLE_MMAP=OFF \
     -Wno-dev
 
-cmake --build . --target install
+make -j $(nproc)
+make install
 exit 0
 cd $ROOT_DIR
 rm -fr build
