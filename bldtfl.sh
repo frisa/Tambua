@@ -39,7 +39,7 @@ cmake ../tflite_src/tensorflow/lite \
     -DTFLITE_ENABLE_MMAP=OFF \
     -Wno-dev
 
-cmake --build . -j
+cmake --build . -j4
 cmake --install .
 exit 0
 cd $ROOT_DIR
