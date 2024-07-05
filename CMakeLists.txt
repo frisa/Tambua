@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
+
+project(tambua C CXX)
+
 find_package(tensorflow-lite CONFIG)
-project(tambua)
-add_executable(${PROJECT_NAME} src/program.cpp)
+add_executable(tambua ./src/program.cpp)
+target_link_libraries(tambua tensorflow-lite)
