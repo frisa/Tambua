@@ -46,7 +46,7 @@ _deps
 CMakeUserPresets.json
 
 # Custom
-tensorflow_build/
-tensorflow_install/
-tensorflow_src/
+tflite_build/
+tflite_install/
+tflite_src/
 build/

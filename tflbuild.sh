@@ -24,7 +24,7 @@ cmake ../tflite_src/tensorflow/lite \
     -DSYSTEM_PTHREADPOOL=OFF \
     -DABSL_PROPAGATE_CXX_STD=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=$ROOT_DIR/tensorflow_install \
+    -DCMAKE_INSTALL_PREFIX=$ROOT_DIR/tflite_install \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DTFLITE_ENABLE_INSTALL=ON \
     -DTFLITE_ENABLE_LABEL_IMAGE=OFF \
