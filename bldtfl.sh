@@ -3,7 +3,7 @@ ROOT_DIR=$(pwd)
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 CLONE=0
-CLEAN=1
+CLEAN=0
 
 cd $ROOT_DIR
 if [ $CLONE -eq 1 ]; then
@@ -41,10 +41,3 @@ cmake ../tflite_src/tensorflow/lite \
 
 cmake --build . -j4
 cmake --install .
-exit 0
-cd $ROOT_DIR
-rm -fr build
-mkdir build
-cd build
-cmake .. 
-make -j4
