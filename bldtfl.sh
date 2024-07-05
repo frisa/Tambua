@@ -37,6 +37,7 @@ cmake ../tflite_src/tensorflow/lite \
     -DTFLITE_ENABLE_EXTERNAL_DELEGATES=OFF \
     -DTFLITE_KERNEL_TEST=OFF \
     -DTFLITE_ENABLE_MMAP=OFF \
+    -DABSL_ENABLE_INSTALL=ON \
     -Wno-dev
 
 cmake --build . -j4
