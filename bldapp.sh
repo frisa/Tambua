@@ -1,5 +1,5 @@
 #!/bin/bash
-ROOT_DIR=$(pwd)
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 

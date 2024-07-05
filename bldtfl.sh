@@ -1,14 +1,14 @@
 #!/bin/bash
-ROOT_DIR=$(pwd)
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
 CLONE=0
-CLEAN=0
+CLEAN=1
 
 cd $ROOT_DIR
 if [ $CLONE -eq 1 ]; then
     rm -fr tflite_src
-    git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
+    git clone https://github.com/tensorflow/tensorflow.git tflite_src
 fi
 
 if [ $CLEAN -eq 1 ]; then
