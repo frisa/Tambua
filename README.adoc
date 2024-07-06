@@ -80,9 +80,8 @@ cmake ../tflite_src/tensorflow/lite \
     -DTFLITE_ENABLE_LABEL_IMAGE=ON \
     -DTFLITE_ENABLE_RESOURCE=OFF \
     -DTFLITE_ENABLE_METAL=OFF \
-    -DABSL_PROPAGATE_CXX_STD=ON \
-    -DABSL_ENABLE_INSTALL=ON \
     -DBUILD_SHARED_LIBS=OFF \
+    -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
     -Wno-dev
 ----
 Output with some errors but it is ok
