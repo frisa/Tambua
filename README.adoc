@@ -50,6 +50,15 @@ rm -fr tflite_install
 mkdir tflite_build
 cd tflite_build
 ----
+There is known issue in the building process which needs to be corrected in file: tensorflow/lite/tools/cmake/modules/ml_dtypes/CMakeLists.txt
+----
+-target_include_directories(ml_dtypes INTERFACE
+- "${ML_DTYPES_SOURCE_DIR}"
+- "${ML_DTYPES_SOURCE_DIR}/ml_dtypes")
++target_include_directories(ml_dtypes INTERFACE
++  "$<BUILD_INTERFACE:${ML_DTYPES_SOURCE_DIR}>" "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
++  "$<BUILD_INTERFACE:${ML_DTYPES_SOURCE_DIR}/ml_dtypes>" "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/ml_dtypes>")
+----
 Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
 ----
 cmake ../tflite_src/tensorflow/lite \
