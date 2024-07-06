@@ -72,4 +72,8 @@ Install the project
 sudo make install
 ----
 
+# Resources
+
+* Workinstruction to build TFL link:https://github.com/bastien-sagetat/photohead/blob/main/doc/soft_requirements.md[Repository from Bastien Segatat]
+* TFL Issue tractking: link:https://github.com/tensorflow/tensorflow/issues/62381[GitHub TensorFlow]
 
