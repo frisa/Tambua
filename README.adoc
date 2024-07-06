@@ -85,6 +85,13 @@ cmake ../tflite_src/tensorflow/lite \
     -DBUILD_SHARED_LIBS=OFF \
     -Wno-dev
 ----
+Output with some errors but it is ok
+----
+-- Configuring done (193.5s)
+CMake Error: install(EXPORT "tensorflow-liteTargets" ...) includes target "tensorflow-lite" which requires target "ruy" that is not in any export set.
+-- Generating done (0.2s)
+CMake Generate step failed.  Build files cannot be regenerated correctly.
+----
 Build the project
 ----
 make -j $(nproc) //Linux
