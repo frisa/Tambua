@@ -49,4 +49,4 @@ CMakeUserPresets.json
 tflite_build/
 tflite_install/
 tflite_src/
-build/
+app_build/

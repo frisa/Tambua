@@ -1,0 +1,8 @@
+{
+    "cmake.configureOnOpen": true,
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "../tflite_install"
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/app_build",
+    "cmake.installPrefix": "${workspaceFolder}/app_install",
+}
