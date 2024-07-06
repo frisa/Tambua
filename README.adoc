@@ -3,17 +3,13 @@
 # Tambua
 "Tambua", which is Swahili for "classify" or "identify"?
 
-# Tensorflow Lite
-The library cna be downloaded and build from following link:
-----
-git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
-----
-Following path needs to be applied:
-----
-cd tensorflow_src
-git apply ../Tambua/install.patch
-----
-## Install with conan
+# Tensorflow Lite Build
+
+The library can be build and installed in two different ways:
+* As conan package
+* As CMake project with dependencies
+
+## Build/Install with Conan
 Get the conan package management
 ----
 brew install conan
@@ -35,61 +31,17 @@ Build the project debug
 conan build . -s build_type=Debug --build=missing
 ----
 
-## Dependencies
+## Build/Install just with CMake
 
-### Abseil
-Repository:
+The library can be downloaded and build from following link:
 ----
-git clone https://github.com/abseil/abseil-cpp.git
+git clone https://github.com/tensorflow/tensorflow.git tflite_src
 ----
-Build and install:
+Following patch needs to be applied:
 ----
-cd abseil-cpp
-mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
+cd tensorflow_src
+git apply ../Tambua/install.patch
 ----
-
-### Eigen3
-Installed by TF
-
-### Flatbuffers
-Installed by TF
-
-### Gemmlowp
-Installed by TF
-
-### NEON2 SSE
-Repository:
-----
-https://github.com/intel/ARM_NEON_2_x86_SSE/
-----
-build (in repository path)
-____
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
-cmake --build . -- target install
-____
-* Cpuinfo
-
-### Ruy
-
-Repository:
-----
-git clone https://chromium.googlesource.com/external/github.com/google/ruy
-git submodule update --init
-----
-
-build (in repository path):
-----
-mkdir build2
-cd build2
-cmake .. -DCMAKE_INSTALL_PREFIX=/Users/jan/TFLite
-cmake --build . -- target install
-----
-
-## Build TensorFlow Lite Project
-
 Configure tensorflow lite project (will be installed to the /Users/jan/TFLite):
 ----
 cmake ../tensorflow_src/tensorflow/lite/ \
