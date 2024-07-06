@@ -45,3 +45,9 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 build
+
+# Custom
+tflite_build/
+tflite_install/
+tflite_src/
+app_build/
