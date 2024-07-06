@@ -33,6 +33,10 @@ conan build . -s build_type=Debug --build=missing
 
 ## Build/Install just with CMake
 
+Install dependencies:
+----
+sudo apt install libabsl-dev libeigen3-dev
+----
 The library can be downloaded and build from following link:
 ----
 git clone https://github.com/tensorflow/tensorflow.git tflite_src
