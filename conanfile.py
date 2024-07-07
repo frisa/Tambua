@@ -1,12 +1,11 @@
 from conan import ConanFile
-from conan.tools.cmake import CMake, cmake_layout
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
 
 class TambuaRecipe(ConanFile):
     name = "tambua"
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
-    generators = "CMakeDeps", "CMakeToolchain"
-    types = "Release", "Debug"
+    generators =  "CMakeToolchain", "CMakeDeps"
 
     def layout(self):
         cmake_layout(self)
@@ -22,3 +21,9 @@ class TambuaRecipe(ConanFile):
     def package(self):
         cmake = CMake(self)
         cmake.install()
+
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.generate()
+        tc = CMakeToolchain(self)
+        tc.generate()
