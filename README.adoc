@@ -16,19 +16,30 @@ brew install conan
 ----
 The requirement:
 ----
-self.requires("tensorflow-lite/2.12.0")
-----
-Detect the profile
-----
-conan profile detect
+self.requires("tensorflow-lite/2.10.0")
 ----
 Build the project
 ----
-conan build . --build=missing
+conan install conanfile.py --build=missing --profile ubuntu-gcc11-release
 ----
-Build the project debug
+Output
 ----
-conan build . -s build_type=Debug --build=missing
+Installing (downloading, building) binaries...
+abseil/20230125.1: Already installed!
+cpuinfo/cci.20220228: Already installed!
+eigen/3.4.0: Already installed!
+farmhash/cci.20190513: Already installed!
+fft/cci.20061228: Already installed!
+flatbuffers/23.3.3: Already installed!
+fxdiv/cci.20200417: Already installed!
+gemmlowp/cci.20210928: Already installed!
+intel-neon2sse/cci.20210225: Already installed!
+psimd/cci.20200517: Already installed!
+fp16/cci.20210320: Already installed!
+pthreadpool/cci.20210218: Already installed!
+ruy/cci.20220628: Already installed!
+xnnpack/cci.20220801: Already installed!
+tensorflow-lite/2.10.0: Already installed!
 ----
 
 ## Build/Install just with CMake
