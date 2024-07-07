@@ -50,4 +50,3 @@ build
 tflite_build/
 tflite_install/
 tflite_src/
-app_build/

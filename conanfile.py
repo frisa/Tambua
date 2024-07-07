@@ -12,7 +12,7 @@ class TambuaRecipe(ConanFile):
         cmake_layout(self)
 
     def requirements(self):
-        self.requires("tensorflow-lite/2.12.0")
+        self.requires("tensorflow-lite/2.10.0")
     
     def build(self):
         cmake = CMake(self)
