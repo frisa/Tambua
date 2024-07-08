@@ -7,5 +7,10 @@ int main() {
         std::cerr << "Failed to create TensorFlow Lite interpreter." << std::endl;
         return -1;
     }
+    else
+    {
+        std::cout << "Successfully created TensorFlow Lite interpreter." << std::endl;
+        interpreter.reset();
+    }
     return 0;
 }

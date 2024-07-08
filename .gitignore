@@ -50,3 +50,10 @@ build
 tflite_build/
 tflite_install/
 tflite_src/
+conan.lock
+
+conanbuildinfo.txt
+
+conaninfo.txt
+
+graph_info.json
