@@ -47,9 +47,6 @@ CMakeUserPresets.json
 build
 
 # Custom
-tflite_build/
-tflite_install/
-tflite_src/
 conan.lock
 
 conanbuildinfo.txt

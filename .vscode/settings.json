@@ -1,6 +1,12 @@
 {
     "C_Cpp.default.includePath": [
-        "/home/frid/.conan/data/tensorflow-lite/2.10.0/_/_/package/4666af5c791613874f522008de7f8f5b923725cd/include"
+        "/home/jan/.conan2/p/tensof8344b1e2b9c4/p/include"
+    ],
+    "cmake.buildArgs": [
+        "-j4",
+        "--config",
+        "Release"
+        "-DCMAKE_PREFIX_PATH=/home/jan/.conan2/p/tensof8344b1e2b9c4/p/"
     ],
     "cmake.configurePreset": "release",
     "cmake.buildPreset": "release",
