@@ -1,0 +1,4 @@
+include(ubuntu-gcc11-release)
+
+[settings]
+build_type=Debug

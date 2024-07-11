@@ -1,13 +1,10 @@
 {
+    "C_Cpp.default.compilerPath": "/usr/bin/g++-11",
     "C_Cpp.default.includePath": [
         "/home/jan/.conan2/p/tensof8344b1e2b9c4/p/include"
     ],
-    "cmake.buildArgs": [
-        "-j4",
-        "--config",
-        "Release"
-        "-DCMAKE_PREFIX_PATH=/home/jan/.conan2/p/tensof8344b1e2b9c4/p/"
-    ],
-    "cmake.configurePreset": "release",
-    "cmake.buildPreset": "release",
+    "cmake.sourceDirectory": "/home/jan/Repositories/Tambua",
+    "cmake.useCMakePresets": "always",
+    "cmake.configureOnOpen": true,
+    "cmake.generator": "Ninja",
 }

@@ -24,5 +24,6 @@ class TambuaRecipe(ConanFile):
     def generate(self):
         deps = CMakeDeps(self)
         deps.generate()
-        tc = CMakeToolchain(self)
+        tc = CMakeToolchain(self, generator='Ninja')
+        tc.user_presets_path = False
         tc.generate()
