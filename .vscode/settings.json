@@ -1,7 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "/usr/bin/g++-11",
     "C_Cpp.default.includePath": [
-        "/home/jan/.conan2/p/tensof8344b1e2b9c4/p/include"
+        "/home/jan/.conan2/p/b/tensob5b10dc8b4584/p/include"
     ],
     "cmake.sourceDirectory": "/home/jan/Repositories/Tambua",
     "cmake.useCMakePresets": "always",
