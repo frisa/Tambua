@@ -1,19 +1,8 @@
 [settings]
-# Build settings - where the library is built
-os_build=Linux
-arch_build=x86_64
-# Target platform settings - where the library will run
-os_target=Linux
-arch_target=x86_64
-# Host settings - where cross compiler is running
-os=Linux
-os.distro=ubuntu_22.04
 arch=x86_64
-compiler=gcc
-compiler.version=11
-compiler.libcxx=libstdc++
-compiler.cppstd=23
 build_type=Release
-[options]
-[build_requires]
-[env]
+compiler=gcc
+compiler.cppstd=17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux   

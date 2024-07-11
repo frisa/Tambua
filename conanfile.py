@@ -5,7 +5,7 @@ class TambuaRecipe(ConanFile):
     name = "tambua"
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
-    generators =  "CMakeToolchain", "CMakeDeps"
+    #generators =  "CMakeToolchain", "CMakeDeps"
 
     def layout(self):
         cmake_layout(self)
