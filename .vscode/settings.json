@@ -3,8 +3,10 @@
     "C_Cpp.default.includePath": [
         "/home/frid/.conan2/p/b/tenso76ed0c96d970b/p/include"
     ],
-    "cmake.sourceDirectory": "/home/jan/Repositories/Tambua",
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.installPrefix": "${workspaceFolder}/install",
     "cmake.useCMakePresets": "always",
     "cmake.configureOnOpen": true,
-    "cmake.generator": "Ninja",
 }

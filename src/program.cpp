@@ -7,7 +7,7 @@
 int main() {
 
     std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile("model.tflite");
-
+    std::cout << "Loading model..." << std::endl;
     if (!model) {
         std::cerr << "Failed to load model." << std::endl;
         return 1;
