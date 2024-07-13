@@ -1,7 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "/usr/bin/g++-11",
     "C_Cpp.default.includePath": [
-        "/home/frid/.conan2/p/b/tenso76ed0c96d970b/p/include"
+        "/home/frid/.conan2/p/b/tensob5b10dc8b4584/p/include"
     ],
     "cmake.generator": "Ninja",
     "cmake.buildDirectory": "${workspaceFolder}/build",
