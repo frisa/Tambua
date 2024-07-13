@@ -5,7 +5,11 @@ find_package(tensorflowlite REQUIRED)
 
 list(APPEND SRC_FILES 
     include/program.h
+    include/bmp.h
+    include/log.h
     src/program.cpp
+    src/bmp.cpp
+    src/log.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

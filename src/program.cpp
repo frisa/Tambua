@@ -1,4 +1,5 @@
 #include "../include/program.h"
+#include "../include/log.h"
 
 #include <iostream>
 #include "tensorflow/lite/interpreter_builder.h"
@@ -19,7 +20,8 @@ int main(int argc, char* argv[]) {
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder interpreter_builder(*model, resolver);
     std::unique_ptr<tflite::Interpreter> interpreter;
-    interpreter_builder(&interpreter);
+    TFL_OK(interpreter_builder(&interpreter));
+    logInterpreterInfo(*interpreter);
     CHECK_TRUE(interpreter!=nullptr);
     return 0;   
 }
