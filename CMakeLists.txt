@@ -15,7 +15,7 @@ list(APPEND SRC_FILES
 
 # Add XNNPACK delegate source files
 set(TF_SOURCE_DIR "/home/jan/Repositories/tensorflow/tensorflow/lite")
-list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/xnnpack_delegate_provider.cc)
+list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/default_execution_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/delegate_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/tool_params.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/command_line_flags.cc)

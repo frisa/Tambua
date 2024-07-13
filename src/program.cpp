@@ -45,13 +45,40 @@ int main(int argc, char *argv[])
     std::cout << "Number of inputs: " << inputs.size() << std::endl;
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
     
-    // Get provided delegates
-    tflite::tools::ProvidedDelegateList delegate_list_util;
+    // Get provided delegates based on params
+    tflite::tools::ToolParams delegate_params;
+    tflite::tools::ProvidedDelegateList delegate_list_util(&delegate_params);
     std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
-    //delegates = delegate_list_util.CreateAllRankedDelegates();
-    std::cout << "Number of delegates: " << delegates.size() << std::endl;
 
+    delegate_list_util.AddAllDelegateParams();
+    delegates = delegate_list_util.CreateAllRankedDelegates();
+    std::cout << "Number of delegates: " << delegates.size() << std::endl;
+    for (auto& delegate : delegates)
+    {
+        const auto name = delegate.provider->GetName();
+        std::cout << "Delegate: " << name << std::endl;
+        if (kTfLiteOk == interpreter->ModifyGraphWithDelegate(std::move(delegate.delegate)))
+        {
+            std::cout << "Delegate " << name << " added" << std::endl;
+        }
+        else
+        {
+            std::cerr << "Delegate " << name << " not added" << std::endl;
+        }
+    }
+
+    // Allocate tensors
     TFL_OK(interpreter->AllocateTensors());
+
+    // Fill the input tensor
+    TfLiteIntArray* dims = interpreter->tensor(input)->dims;
+    int wanted_height = dims->data[1];
+    int wanted_width = dims->data[2];
+    int wanted_channels = dims->data[3];
+    TfLiteType wanted_type = interpreter->tensor(input)->type;
+    resize_bmp(interpreter->typed_tensor<uint8_t>(input), bmp_bytes.data(),
+                      height, width, channels, wanted_height, wanted_width, wanted_channels);
+
     interpreter.reset();
     return 0;
 }
