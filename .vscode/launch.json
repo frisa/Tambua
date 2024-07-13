@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug CMake Project",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/Debug/tambua",
+        "args": ["${workspaceFolder}/models/mobilenet_quant.tflite"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "preLaunchTask": "CMake: build"
+      }
+    ]
+  }

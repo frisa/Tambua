@@ -6,7 +6,12 @@ message(STATUS "Project Name: ${PROJECT_NAME}")
 message(STATUS "TensorFlow Lite Includes: ${tensorflowlite_INCLUDE_DIR}")
 message(STATUS "TensorFlow Lite Libraries: ${tensorflowlite_LIBRARIES}")
 
-add_executable(${PROJECT_NAME} src/program.cpp)
+list(APPEND SRC_FILES 
+    include/program.h
+    src/program.cpp
+)
+
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${tensorflowlite_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} tensorflow::tensorflowlite)
