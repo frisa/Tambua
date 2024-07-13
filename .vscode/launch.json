@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "Debug CMake Project",
+        "name": "Debug",
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/build/Debug/tambua",
