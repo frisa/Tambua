@@ -22,10 +22,13 @@ int main(int argc, char *argv[])
     tflite::InterpreterBuilder interpreter_builder(*model, resolver);
     std::unique_ptr<tflite::Interpreter> interpreter;
     TFL_OK(interpreter_builder(&interpreter));
-    Log::logInterpreterInfo(*interpreter);
+    Log::logInterpreterInfo(interpreter);
     CHECK_TRUE(interpreter != nullptr);
 
     int width{224}, height{224}, channels{3};
-    std::vector<uint8_t> input = read_bmp(argv[1], &width, &height, &channels);
+    std::vector<uint8_t> bmp_bytes = read_bmp(argv[1], &width, &height, &channels);
+    interpreter->inputs()[0];
+    TFL_OK(interpreter->AllocateTensors());
+    interpreter.reset();
     return 0;
 }
