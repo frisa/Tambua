@@ -2,8 +2,9 @@
 #include "../include/log.h"
 #include "../include/bmp.h"
 #include <queue>
-
+#include <string>
 #include <iostream>
+#include <fstream>
 #include "tensorflow/lite/interpreter_builder.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
@@ -14,12 +15,14 @@
 void get_top_n(uint8_t *prediction, int prediction_size, size_t num_results,
                float threshold, std::vector<std::pair<float, int>> *top_results);
 
+void get_label(const std::string &file_name, std::vector<std::string> *result, size_t *found_label_count);
+
 int main(int argc, char *argv[])
 {
     // Check the arguments
-    if (argc != 3)
+    if (argc != 4)
     {
-        std::cerr << "Usage: " << argv[0] << "<bitmap file> <model file>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << "<bitmap file> <model file> <label file>" << std::endl;
         return 1;
     }
     // Load the model
@@ -84,6 +87,7 @@ int main(int argc, char *argv[])
                height, width, channels, wanted_height, wanted_width, wanted_channels);
 
     // Run the interpreter
+    std::cout << "Running classification ..." << std::endl;
     interpreter->Invoke();
 
     // Get the output tensor
@@ -96,11 +100,16 @@ int main(int argc, char *argv[])
     get_top_n(interpreter->typed_output_tensor<uint8_t>(0),
               output_size, number_of_results, threshold,
               &top_results);
+
+    // Get the labels
+    std::vector<std::string> labels;
+    size_t label_count;
+    get_label(argv[3], &labels, &label_count);
     for (const auto &result : top_results)
     {
         const float confidence = result.first;
         const int index = result.second;
-        std::cout << confidence << ": " << index << " " << std::endl;
+        std::cout << confidence << ": " << index << " " << labels[index] << std::endl;
     }
     interpreter.reset();
     return 0;
@@ -134,4 +143,25 @@ void get_top_n(uint8_t *prediction, int prediction_size, size_t num_results,
         top_result_pq.pop();
     }
     std::reverse(top_results->begin(), top_results->end());
+}
+
+void get_label(const std::string &file_name, std::vector<std::string> *result, size_t *found_label_count)
+{
+    std::ifstream file(file_name);
+    if (!file)
+    {
+        std::cout << "Labels file " << file_name << " not found";
+    }
+    result->clear();
+    std::string line;
+    while (std::getline(file, line))
+    {
+        result->push_back(line);
+    }
+    *found_label_count = result->size();
+    const int padding = 16;
+    while (result->size() % padding)
+    {
+        result->emplace_back();
+    }
 }
