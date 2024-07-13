@@ -9,9 +9,17 @@
         "args": ["${workspaceFolder}/models/mobilenet_quant.tflite"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
+        "MIMode": "gdb",
         "environment": [],
         "externalConsole": false,
-        "preLaunchTask": "CMake: build"
+        "preLaunchTask": "CMake: build",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
       }
     ]
   }

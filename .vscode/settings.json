@@ -17,6 +17,5 @@
     "cmake.buildBeforeRun": true,
     "cmake.cmakePath": "cmake",
     "cmake.clearOutputBeforeBuild": true,
-    "cmake.loggingLevel": "info",
-    
+    "cmake.loggingLevel": "info",    
 }
