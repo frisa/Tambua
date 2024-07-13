@@ -6,7 +6,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/build/Debug/tambua",
-        "args": ["${workspaceFolder}/models/mobilenet_quant.tflite"],
+        "args": ["${workspaceFolder}/bmp/uniform.bmp" ,"${workspaceFolder}/models/mobilenet_quant.tflite"],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",
         "MIMode": "gdb",

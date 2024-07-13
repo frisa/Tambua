@@ -3,4 +3,10 @@
 #include <iostream>
 #include "tensorflow/lite/interpreter.h"
 
-void logInterpreterInfo(const tflite::Interpreter& interpreter);
+class Log
+{
+public:
+    static void logInterpreterInfo(const tflite::Interpreter &interpreter);
+};
+
+#define LOG(severity) Log(#severity).Stream()

@@ -1,6 +1,6 @@
 #include "../include/log.h"
 
-void logInterpreterInfo(const tflite::Interpreter &interpreter)
+void Log::logInterpreterInfo(const tflite::Interpreter &interpreter)
 {
     std::cout << "Number of inputs: " << interpreter.inputs().size() << std::endl;
     std::cout << "Number of outputs: " << interpreter.outputs().size() << std::endl;

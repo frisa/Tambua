@@ -1,5 +1,6 @@
 #include "../include/program.h"
 #include "../include/log.h"
+#include "../include/bmp.h"
 
 #include <iostream>
 #include "tensorflow/lite/interpreter_builder.h"
@@ -8,20 +9,23 @@
 #include "tensorflow/lite/model_builder.h"
 #include "tensorflow/lite/optional_debug_tools.h"
 
-int main(int argc, char* argv[]) {
-
-    if (argc!=2)
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
     {
-        std::cerr << "Usage: " << argv[0] << " <tflite model file>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << "<bitmap file> <model file>" << std::endl;
         return 1;
     }
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(argv[1]);
-    CHECK_TRUE(model!=nullptr);
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(argv[2]);
+    CHECK_TRUE(model != nullptr);
     tflite::ops::builtin::BuiltinOpResolver resolver;
     tflite::InterpreterBuilder interpreter_builder(*model, resolver);
     std::unique_ptr<tflite::Interpreter> interpreter;
     TFL_OK(interpreter_builder(&interpreter));
-    logInterpreterInfo(*interpreter);
-    CHECK_TRUE(interpreter!=nullptr);
-    return 0;   
+    Log::logInterpreterInfo(*interpreter);
+    CHECK_TRUE(interpreter != nullptr);
+
+    int width{224}, height{224}, channels{3};
+    std::vector<uint8_t> input = read_bmp(argv[1], &width, &height, &channels);
+    return 0;
 }
