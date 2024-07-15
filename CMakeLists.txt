@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.5)
 project(tambua)
 
 find_package(tensorflowlite REQUIRED)
+find_package(absl REQUIRED)
+
+# Variables set by conan_toolchain.cmake
+message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
+message(STATUS "CMAKE_INCLUDE_PATH: ${CMAKE_INCLUDE_PATH}")
+message(STATUS "CMAKE_LIBRARY_PATH: ${CMAKE_LIBRARY_PATH}")
 
 # Add application source files
 list(APPEND SRC_FILES 
@@ -13,8 +19,8 @@ list(APPEND SRC_FILES
     src/log.cpp
 )
 
-# Add XNNPACK delegate source files
-set(TF_SOURCE_DIR "/home/jan/Repositories/tensorflow/tensorflow/lite")
+# Add delegate source files
+set(TF_SOURCE_DIR "~/Repositories/tensorflow/tensorflow/lite")
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/default_execution_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/delegate_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/tool_params.cc)

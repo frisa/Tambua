@@ -3,6 +3,7 @@ ROOT_DIR=$(pwd)
 HOME_DIR=$(echo ~)
 
 source $ROOT_DIR/conan2/bin/activate
+conan --version
 
 rm -fr $ROOT_DIR/build
 rm -f $HOME_DIR/.conan2/profiles/ubuntu-gcc11-release
