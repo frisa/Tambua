@@ -18,7 +18,6 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/delegate_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/tool_params.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/command_line_flags.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/evaluation/utils.cc)
-set(TFLITE_CC_OPTIONS "")
 
 # Add delegate for XNNPACK
 set(TFLITE_ENABLE_XNNPACK ON CACHE BOOL "Enable XNNPACK delegate")
