@@ -66,10 +66,6 @@ int main(int argc, char *argv[])
         params.Set<bool>("use_xnnpack", true);
         params.Set<int32_t>("num_threads", 4);
     }
-    else
-    {
-        params.Set<bool>("use_xnnpack", false);
-    }
     delegates = delegate_list.CreateAllRankedDelegates();
     std::cout << "Number of delegates: " << delegates.size() << std::endl;
     for (auto &delegate : delegates)
