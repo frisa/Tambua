@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(tambua)
 
+# Get the dependencies
 find_package(tensorflowlite REQUIRED)
 find_package(absl REQUIRED)
 
@@ -11,12 +12,8 @@ message(STATUS "CMAKE_LIBRARY_PATH: ${CMAKE_LIBRARY_PATH}")
 
 # Add application source files
 list(APPEND SRC_FILES 
-    include/program.h
-    include/bmp.h
-    include/log.h
     src/program.cpp
-    src/bmp.cpp
-    src/log.cpp
+    src/helpers.cpp
 )
 
 # Add delegate source files

@@ -5,5 +5,19 @@
     },
     "include": [
         "build/Debug/generators/CMakePresets.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "'debug' config",
+            "description": "'Debug' configure using 'Ninja' generator",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "toolchainFile": "${sourceDir}/build/Debug/generators/conan_toolchain.cmake",
+            "binaryDir": "${sourceDir}/build/Debug"
+        }
     ]
 }

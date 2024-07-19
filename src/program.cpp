@@ -1,21 +1,15 @@
-#include "../include/program.h"
-#include "../include/log.h"
-#include "../include/bmp.h"
+#include "../include/helpers.h"
 #include <queue>
 #include <string>
 #include <iostream>
 #include <fstream>
+
 #include "tensorflow/lite/interpreter_builder.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
 #include "tensorflow/lite/model_builder.h"
 #include "tensorflow/lite/optional_debug_tools.h"
 #include "tensorflow/lite/tools/delegates/delegate_provider.h"
-
-void get_top_n(uint8_t *prediction, int prediction_size, size_t num_results,
-               float threshold, std::vector<std::pair<float, int>> *top_results);
-
-void get_label(const std::string &file_name, std::vector<std::string> *result, size_t *found_label_count);
 
 int main(int argc, char *argv[])
 {
@@ -35,7 +29,6 @@ int main(int argc, char *argv[])
     std::unique_ptr<tflite::Interpreter> interpreter;
     TFL_OK(interpreter_builder(&interpreter));
     CHECK_TRUE(interpreter != nullptr);
-    Log::logInterpreterInfo(interpreter);
 
     // Load the image
     int width{224}, height{224}, channels{3};
@@ -113,55 +106,4 @@ int main(int argc, char *argv[])
     }
     interpreter.reset();
     return 0;
-}
-
-void get_top_n(uint8_t *prediction, int prediction_size, size_t num_results,
-               float threshold, std::vector<std::pair<float, int>> *top_results)
-{
-    std::priority_queue<std::pair<float, int>, std::vector<std::pair<float, int>>,
-                        std::greater<std::pair<float, int>>>
-        top_result_pq;
-
-    const long count = prediction_size;
-    float value = 0.0;
-    for (int i = 0; i < count; ++i)
-    {
-        value = prediction[i] / 255.0;
-        if (value < threshold)
-        {
-            continue;
-        }
-        top_result_pq.push(std::pair<float, int>(value, i));
-        if (top_result_pq.size() > num_results)
-        {
-            top_result_pq.pop();
-        }
-    }
-    while (!top_result_pq.empty())
-    {
-        top_results->push_back(top_result_pq.top());
-        top_result_pq.pop();
-    }
-    std::reverse(top_results->begin(), top_results->end());
-}
-
-void get_label(const std::string &file_name, std::vector<std::string> *result, size_t *found_label_count)
-{
-    std::ifstream file(file_name);
-    if (!file)
-    {
-        std::cout << "Labels file " << file_name << " not found";
-    }
-    result->clear();
-    std::string line;
-    while (std::getline(file, line))
-    {
-        result->push_back(line);
-    }
-    *found_label_count = result->size();
-    const int padding = 16;
-    while (result->size() % padding)
-    {
-        result->emplace_back();
-    }
 }
