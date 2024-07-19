@@ -50,7 +50,17 @@ int main(int argc, char *argv[])
     tflite::tools::ProvidedDelegateList delegate_list_util(&delegate_params);
     std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
 
+    // Add the XNNPACK command line flag
     delegate_list_util.AddAllDelegateParams();
+    bool xnnpack_enabled = false;
+    int num_threads = 1;
+    std::vector<tflite::Flag> flags = { 
+        tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
+        tflite::Flag::CreateFlag("num_threads", &num_threads, "XNNPACK used threads")
+        };
+
+    // Create all delegates
+    delegate_list_util.AppendCmdlineFlags(flags);
     delegates = delegate_list_util.CreateAllRankedDelegates();
     std::cout << "Number of delegates: " << delegates.size() << std::endl;
     for (auto &delegate : delegates)
