@@ -45,13 +45,13 @@ int main(int argc, char *argv[])
     std::cout << "Number of inputs: " << inputs.size() << std::endl;
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
 
-    // Get provided delegates based on params
-    tflite::tools::ToolParams delegate_params;
-    tflite::tools::ProvidedDelegateList delegate_list_util(&delegate_params);
+    // Configure delegates
+    tflite::tools::ToolParams params;
+    tflite::tools::ProvidedDelegateList delegate_list(&params);
     std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
 
-    // Add the XNNPACK command line flag
-    delegate_list_util.AddAllDelegateParams();
+    // Add command line flags
+    delegate_list.AddAllDelegateParams();
     bool xnnpack_enabled = false;
     int num_threads = 1;
     std::vector<tflite::Flag> flags = { 
@@ -60,8 +60,20 @@ int main(int argc, char *argv[])
         };
 
     // Create all delegates
-    delegate_list_util.AppendCmdlineFlags(flags);
-    delegates = delegate_list_util.CreateAllRankedDelegates();
+    delegate_list.AppendCmdlineFlags(flags);
+
+    // Get provided delegates based on params
+    if (params.HasParam("use_xnnpack"))
+    {
+        params.Set<bool>("use_xnnpack", true);
+        params.Set<int32_t>("num_threads", 4);
+    }
+    else
+    {
+        params.Set<bool>("use_xnnpack", false);
+    }
+
+    delegates = delegate_list.CreateAllRankedDelegates();
     std::cout << "Number of delegates: " << delegates.size() << std::endl;
     for (auto &delegate : delegates)
     {
