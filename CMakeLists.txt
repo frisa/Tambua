@@ -20,7 +20,7 @@ list(APPEND SRC_FILES
 )
 
 # Add delegate source files
-set(TF_SOURCE_DIR "~/Repositories/tensorflow/tensorflow/lite")
+set(TF_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tensorflow_repository/lite)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/default_execution_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/delegate_provider.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/tool_params.cc)
