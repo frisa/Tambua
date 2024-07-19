@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
     // Run the interpreter
     std::cout << "Running classification ..." << std::endl;
     profiler->StartProfiling();
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 1; i++)
     {
         std::cout << "Iteration " << i << std::endl;
         interpreter->Invoke();
@@ -95,14 +95,9 @@ int main(int argc, char *argv[])
 
     // Print profiling information
     auto profile_events = profiler->GetProfileEvents();
-    for (int i = 0; i < profile_events.size(); i++)
+    for (const auto &event : profile_events)
     {
-        auto subgraph_index = profile_events[i]->extra_event_metadata;
-        auto op_index = profile_events[i]->event_metadata;
-        const auto subgraph = interpreter->subgraph(subgraph_index);
-        const auto node_and_registration = subgraph->node_and_registration(op_index);
-        const TfLiteRegistration registration = node_and_registration->second;
-        PrintProfilingInfo(profile_events[i], subgraph_index, op_index, registration);
+        std::cout << "Op: " << event->tag << ", Elapsed Time (us): " << event->elapsed_time << std::endl;
     }
 
     // Get the output tensor
