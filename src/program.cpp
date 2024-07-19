@@ -10,6 +10,7 @@
 #include "tensorflow/lite/model_builder.h"
 #include "tensorflow/lite/optional_debug_tools.h"
 #include "tensorflow/lite/tools/delegates/delegate_provider.h"
+#include "tensorflow/lite/tools/evaluation/utils.h"
 
 int main(int argc, char *argv[])
 {
@@ -45,42 +46,23 @@ int main(int argc, char *argv[])
     std::cout << "Number of inputs: " << inputs.size() << std::endl;
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
 
-    // Configure delegates
-    tflite::tools::ToolParams params;
-    tflite::tools::ProvidedDelegateList delegate_list(&params);
-    std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
-
-    // Add command line flags
-    delegate_list.AddAllDelegateParams();
-    bool xnnpack_enabled = false;
-    int num_threads = 1;
-    std::vector<tflite::Flag> flags = { 
-        tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
-        tflite::Flag::CreateFlag("num_threads", &num_threads, "XNNPACK used threads")
-        };
-    delegate_list.AppendCmdlineFlags(flags);
-
-    // Check configured delegates and setup them
-    if (params.HasParam("use_xnnpack"))
+    // Create XNNPACK delegate
+    tflite::evaluation::TfLiteDelegatePtr delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
+    if (!delegate) 
     {
-        params.Set<bool>("use_xnnpack", true);
-        params.Set<int32_t>("num_threads", 4);
+        std::cout << "XNNPACK acceleration is unsupported on this platform.";
     }
-    delegates = delegate_list.CreateAllRankedDelegates();
-    std::cout << "Number of delegates: " << delegates.size() << std::endl;
-    for (auto &delegate : delegates)
+    else 
     {
-        const auto name = delegate.provider->GetName();
-        std::cout << "Delegate: " << name << ", status: ";
-        if (kTfLiteOk == interpreter->ModifyGraphWithDelegate(std::move(delegate.delegate)))
+        if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk) 
         {
-            std::cout << " added" << std::endl;
+            std::cout << "Failed to apply XNNPACK delegate" << std::endl;
         }
-        else
+        else 
         {
-            std::cerr << " not added" << std::endl;
+            std::cout << "Applied XNNPACK delegate" << std::endl;
         }
-    }
+    } 
 
     // Allocate tensors
     TFL_OK(interpreter->AllocateTensors());

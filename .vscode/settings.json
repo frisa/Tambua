@@ -1,7 +1,7 @@
 {
     "C_Cpp.default.includePath": [
-        "/home/frid/.conan2/p/b/tenso0f15965ac9c84/p/include",
-        "/home/frid/.conan2/p/b/absei03f3524c5ebb7/p/include"
+        "/home/frid/.conan2/p/b/tensob5b10dc8b4584/p/include",
+        "/home/frid/.conan2/p/b/abseicb50e8ac15953/p/include"
     ],
     "cmake.generator": "Ninja",
     "cmake.sourceDirectory": "${workspaceFolder}",
