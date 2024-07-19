@@ -23,11 +23,9 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/evaluation/utils.cc)
 set(TFLITE_ENABLE_XNNPACK ON CACHE BOOL "Enable XNNPACK delegate")
 if(TFLITE_ENABLE_XNNPACK)
     list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tools/delegates/xnnpack_delegate_provider.cc)
-
 else()
     set(CC_OPTIONS "-DTFLITE_WITHOUT_XNNPACK")
 endif()
-
 
 # Add executable
 add_executable(${PROJECT_NAME} ${SRC_FILES})
