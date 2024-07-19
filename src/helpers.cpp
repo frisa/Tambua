@@ -4,10 +4,12 @@
 #include <string>
 #include <memory>
 #include <queue>
+#include <iomanip>
 
 #include "tensorflow/lite/builtin_op_data.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
+#include "tensorflow/lite/schema/schema_generated.h"
 
 std::vector<uint8_t> decode_bmp(const uint8_t *input, int row_size, int width, int height, int channels, bool top_down)
 {
@@ -85,7 +87,6 @@ std::vector<uint8_t> read_bmp(const char *filename, int *width, int *height, int
     std::cout << "  width: " << *width << std::endl;
     std::cout << "  height: " << *height << std::endl;
     std::cout << "  channels: " << *channels << std::endl;
-
 
     // there may be padding bytes when the width is not a multiple of 4 bytes
     // 8 * channels == bits per pixel
@@ -192,4 +193,22 @@ void get_label(const std::string &file_name, std::vector<std::string> *result, s
     {
         result->emplace_back();
     }
+}
+
+void PrintProfilingInfo(const tflite::profiling::ProfileEvent *e,
+                        uint32_t subgraph_index, uint32_t op_index,
+                        TfLiteRegistration registration)
+{
+    // output something like
+    // time (ms) , Node xxx, OpCode xxx, symbolic name
+    //      5.352, Node   5, OpCode   4, DEPTHWISE_CONV_2D
+
+    std::cout << std::fixed << std::setw(10) << std::setprecision(3)
+              << (e->elapsed_time) / 1000.0 << ", Subgraph " << std::setw(3)
+              << std::setprecision(3) << subgraph_index << ", Node "
+              << std::setw(3) << std::setprecision(3) << op_index << ", OpCode "
+              << std::setw(3) << std::setprecision(3) << registration.builtin_code
+              << ", "
+              << tflite::EnumNameBuiltinOperator(
+                     static_cast<tflite::BuiltinOperator>(registration.builtin_code));
 }

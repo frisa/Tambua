@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <memory>
 
 #include "tensorflow/lite/interpreter_builder.h"
 #include "tensorflow/lite/interpreter.h"
@@ -11,6 +12,7 @@
 #include "tensorflow/lite/optional_debug_tools.h"
 #include "tensorflow/lite/tools/delegates/delegate_provider.h"
 #include "tensorflow/lite/tools/evaluation/utils.h"
+#include "tensorflow/lite/profiling/profiler.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,21 +50,21 @@ int main(int argc, char *argv[])
 
     // Create XNNPACK delegate
     tflite::evaluation::TfLiteDelegatePtr delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
-    if (!delegate) 
+    if (!delegate)
     {
         std::cout << "XNNPACK acceleration is unsupported on this platform.";
     }
-    else 
+    else
     {
-        if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk) 
+        if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk)
         {
             std::cout << "Failed to apply XNNPACK delegate" << std::endl;
         }
-        else 
+        else
         {
             std::cout << "Applied XNNPACK delegate" << std::endl;
         }
-    } 
+    }
 
     // Allocate tensors
     TFL_OK(interpreter->AllocateTensors());
@@ -76,9 +78,28 @@ int main(int argc, char *argv[])
     resize_bmp(interpreter->typed_tensor<uint8_t>(input), bmp_bytes.data(),
                height, width, channels, wanted_height, wanted_width, wanted_channels);
 
+    // Set profiling
+    int max_profiling_buffer_entries = 100;
+    std::unique_ptr<tflite::profiling::Profiler> profiler = std::make_unique<tflite::profiling::Profiler>(max_profiling_buffer_entries);
+    interpreter->SetProfiler(profiler.get());
+
     // Run the interpreter
     std::cout << "Running classification ..." << std::endl;
+    profiler->StartProfiling();
     interpreter->Invoke();
+    profiler->StopProfiling();
+
+    // Print profiling information
+    auto profile_events = profiler->GetProfileEvents();
+    for (int i = 0; i < profile_events.size(); i++)
+    {
+        auto subgraph_index = profile_events[i]->extra_event_metadata;
+        auto op_index = profile_events[i]->event_metadata;
+        const auto subgraph = interpreter->subgraph(subgraph_index);
+        const auto node_and_registration = subgraph->node_and_registration(op_index);
+        const TfLiteRegistration registration = node_and_registration->second;
+        PrintProfilingInfo(profile_events[i], subgraph_index, op_index, registration);
+    }
 
     // Get the output tensor
     const float threshold = 0.001f;
