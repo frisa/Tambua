@@ -32,3 +32,4 @@ add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 # Link libraries
 target_link_libraries(${PROJECT_NAME} tensorflow::tensorflowlite)
+target_link_libraries(${PROJECT_NAME} abseil::abseil)

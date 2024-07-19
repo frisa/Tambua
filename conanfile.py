@@ -10,6 +10,7 @@ class TambuaRecipe(ConanFile):
         cmake_layout(self)
 
     def requirements(self):
+        self.requires("abseil/20230125.3")
         self.requires("tensorflow-lite/2.10.0")
     
     def build(self):
