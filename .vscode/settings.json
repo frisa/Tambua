@@ -105,7 +105,12 @@
         "__hash_table": "cpp",
         "__tree": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "__bit_reference": "cpp",
+        "__locale": "cpp",
+        "__threading_support": "cpp",
+        "__verbose_abort": "cpp",
+        "locale": "cpp"
     },
     "asciidoc.antora.enableAntoraSupport": true,
     

@@ -58,11 +58,9 @@ int main(int argc, char *argv[])
         tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
         tflite::Flag::CreateFlag("num_threads", &num_threads, "XNNPACK used threads")
         };
-
-    // Create all delegates
     delegate_list.AppendCmdlineFlags(flags);
 
-    // Get provided delegates based on params
+    // Check configured delegates and setup them
     if (params.HasParam("use_xnnpack"))
     {
         params.Set<bool>("use_xnnpack", true);
@@ -72,20 +70,19 @@ int main(int argc, char *argv[])
     {
         params.Set<bool>("use_xnnpack", false);
     }
-
     delegates = delegate_list.CreateAllRankedDelegates();
     std::cout << "Number of delegates: " << delegates.size() << std::endl;
     for (auto &delegate : delegates)
     {
         const auto name = delegate.provider->GetName();
-        std::cout << "Delegate: " << name << std::endl;
+        std::cout << "Delegate: " << name << ", status: ";
         if (kTfLiteOk == interpreter->ModifyGraphWithDelegate(std::move(delegate.delegate)))
         {
-            std::cout << "Delegate " << name << " added" << std::endl;
+            std::cout << " added" << std::endl;
         }
         else
         {
-            std::cerr << "Delegate " << name << " not added" << std::endl;
+            std::cerr << " not added" << std::endl;
         }
     }
 
