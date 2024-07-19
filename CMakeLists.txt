@@ -21,6 +21,7 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/evaluation/utils.cc
 
 # Add profiling
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/core/util/stats_calculator.cc)
+list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/time.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/memory_info.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summarizer.cc)
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summary_formatter.cc)
