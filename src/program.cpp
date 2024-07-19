@@ -79,14 +79,18 @@ int main(int argc, char *argv[])
                height, width, channels, wanted_height, wanted_width, wanted_channels);
 
     // Set profiling
-    int max_profiling_buffer_entries = 100;
+    int max_profiling_buffer_entries = 1024;
     std::unique_ptr<tflite::profiling::Profiler> profiler = std::make_unique<tflite::profiling::Profiler>(max_profiling_buffer_entries);
     interpreter->SetProfiler(profiler.get());
 
     // Run the interpreter
     std::cout << "Running classification ..." << std::endl;
     profiler->StartProfiling();
-    interpreter->Invoke();
+    for (int i = 0; i < 3; i++)
+    {
+        std::cout << "Iteration " << i << std::endl;
+        interpreter->Invoke();
+    }
     profiler->StopProfiling();
 
     // Print profiling information
