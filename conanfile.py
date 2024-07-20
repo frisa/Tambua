@@ -27,7 +27,5 @@ class TambuaRecipe(ConanFile):
         deps.generate()
         tc = CMakeToolchain(self, generator='Ninja')
         tc.preprocessor_definitions["TFLITE_PROFILING_ENABLED"] = "ON"
-        tc.preprocessor_definitions["TFLITE_ENABLE_XNNPACK"] = "ON"
-        tc.preprocessor_definitions["TFLITE_ENABLE_GPU"] = "ON"
         tc.user_presets_path = False
         tc.generate()

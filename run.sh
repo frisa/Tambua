@@ -6,7 +6,7 @@ HOME_DIR=$(echo ~)
 conan --version
 
 rm -fr $ROOT_DIR/build
-rm -fr ~/.conan2/p
+#rm -fr ~/.conan2/p
 
 rm -f $HOME_DIR/.conan2/profiles/ubuntu-gcc11-release
 rm -f $HOME_DIR/.conan2/profiles/ubuntu-gcc11-debug

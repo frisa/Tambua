@@ -27,16 +27,10 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summari
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summary_formatter.cc)
 
 # Add delegate for XNNPACK
-if(TFLITE_ENABLE_XNNPACK)
-    list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/xnnpack_delegate_provider.cc)
-else()
-    set(CC_OPTIONS "-DTFLITE_WITHOUT_XNNPACK")
-endif()
+list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/xnnpack_delegate_provider.cc)
 
 # Add delegate for GPU
-if(TFLITE_ENABLE_GPU)
-    list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/gpu_delegate_provider.cc)
-endif()
+list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/gpu_delegate_provider.cc)
 
 # Add executable
 add_executable(${PROJECT_NAME} ${SRC_FILES})
