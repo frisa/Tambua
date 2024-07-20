@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     // Create XNNPACK delegate
     bool use_xnnpack = false;
-    bool use_gpu = true;
+    bool use_gpu = false;
 
     tflite::evaluation::TfLiteDelegatePtr delegate = tflite::tools::CreateNullDelegate();;
     if (use_xnnpack)

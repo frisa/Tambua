@@ -4,11 +4,12 @@
         "conan": {}
     },
     "include": [
-        "build/Debug/generators/CMakePresets.json"
+        "build/Debug/generators/CMakePresets.json",
+        "build/Release/generators/CMakePresets.json"
     ],
     "configurePresets": [
         {
-            "name": "debug",
+            "name": "vs-debug",
             "displayName": "'debug' config",
             "description": "'Debug' configure using 'Ninja' generator",
             "generator": "Ninja",
@@ -18,6 +19,18 @@
             },
             "toolchainFile": "${sourceDir}/build/Debug/generators/conan_toolchain.cmake",
             "binaryDir": "${sourceDir}/build/Debug"
+        },
+        {
+            "name": "vs-release",
+            "displayName": "'release' config",
+            "description": "'Release' configure using 'Ninja' generator",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "toolchainFile": "${sourceDir}/build/Release/generators/conan_toolchain.cmake",
+            "binaryDir": "${sourceDir}/build/Release"
         }
     ]
 }

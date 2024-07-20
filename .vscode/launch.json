@@ -24,6 +24,30 @@
             "ignoreFailures": true
           }
         ]
+      },
+      {
+        "name": "Release",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/build/Release/tambua",
+        "args": [
+          "${workspaceFolder}/data/uniform.bmp",
+          "${workspaceFolder}/data/mobilenet_quant.tflite",
+          "${workspaceFolder}/data/labels.txt"
+        ],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "MIMode": "gdb",
+        "environment": [],
+        "externalConsole": false,
+        "preLaunchTask": "CMake: build",
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ]
       }
     ]
   }
