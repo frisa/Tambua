@@ -32,3 +32,5 @@ void get_label(const std::string &file_name, std::vector<std::string> *result, s
 void PrintProfilingInfo(const tflite::profiling::ProfileEvent *e,
                         uint32_t subgraph_index, uint32_t op_index,
                         TfLiteRegistration registration);
+
+double get_us(struct timeval t);

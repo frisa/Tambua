@@ -27,7 +27,7 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summari
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summary_formatter.cc)
 
 # Add delegate for XNNPACK
-set(TFLITE_ENABLE_XNNPACK ON CACHE BOOL "Enable XNNPACK delegate")
+set(TFLITE_ENABLE_XNNPACK OFF CACHE BOOL "Enable XNNPACK delegate")
 if(TFLITE_ENABLE_XNNPACK)
     list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/xnnpack_delegate_provider.cc)
 else()

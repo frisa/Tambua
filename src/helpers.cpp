@@ -211,4 +211,10 @@ void PrintProfilingInfo(const tflite::profiling::ProfileEvent *e,
               << ", "
               << tflite::EnumNameBuiltinOperator(
                      static_cast<tflite::BuiltinOperator>(registration.builtin_code));
+    std::cout << std::endl;
+}
+
+double get_us(struct timeval t)
+{
+    return (t.tv_sec * 1000000 + t.tv_usec);
 }

@@ -5,6 +5,11 @@
 #include <fstream>
 #include <memory>
 
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+
 #include "tensorflow/lite/interpreter_builder.h"
 #include "tensorflow/lite/interpreter.h"
 #include "tensorflow/lite/kernels/register.h"
@@ -49,20 +54,34 @@ int main(int argc, char *argv[])
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
 
     // Create XNNPACK delegate
-    tflite::evaluation::TfLiteDelegatePtr delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
-    if (!delegate)
+    bool use_xnnpack = false;
+    bool use_gpu = true;
+
+    tflite::evaluation::TfLiteDelegatePtr delegate = tflite::tools::CreateNullDelegate();;
+    if (use_xnnpack)
     {
-        std::cout << "XNNPACK acceleration is unsupported on this platform.";
+        delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
+        std::cout << "XNNPACK delegate is used." << std::endl;
+    }
+    else if (use_gpu)
+    {
+        delegate = tflite::evaluation::CreateGPUDelegate();
+        std::cout << "GPU delegate is used." << std::endl;
     }
     else
     {
+        std::cout << "No delegate is used." << std::endl;
+    }
+
+    if (delegate)
+    {
         if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk)
         {
-            std::cout << "Failed to apply XNNPACK delegate" << std::endl;
+            std::cout << "Failed to apply delegate" << std::endl;
         }
         else
         {
-            std::cout << "Applied XNNPACK delegate" << std::endl;
+            std::cout << "Applied delegate" << std::endl;
         }
     }
 
@@ -84,20 +103,54 @@ int main(int argc, char *argv[])
     interpreter->SetProfiler(profiler.get());
 
     // Run the interpreter
+    int loop_count = 1;
+    int number_of_warmup_runs = 2;
     std::cout << "Running classification ..." << std::endl;
     profiler->StartProfiling();
-    for (int i = 0; i < 1; i++)
+
+    for (int i = 0; i < number_of_warmup_runs; i++)
     {
-        std::cout << "Iteration " << i << std::endl;
-        interpreter->Invoke();
+        if (interpreter->Invoke() != kTfLiteOk)
+        {
+            std::cerr << "Failed to invoke tflite!" << std::endl;
+            return 1;
+        }
+        else
+        {
+            std::cout << "WarmUp[" << i << "]" << std::endl;
+        }
     }
+
+    struct timeval start_time, stop_time;
+    gettimeofday(&start_time, nullptr);
+
+    for (int i = 0; i < loop_count; i++)
+    {
+        if (interpreter->Invoke() != kTfLiteOk)
+        {
+            std::cerr << "Failed to invoke tflite!" << std::endl;
+            return 1;
+        }
+        else
+        {
+            std::cout << "Invoked[" << i << "]" << std::endl;
+        }
+    }
+
+    gettimeofday(&stop_time, nullptr);
+    std::cout << "Invoked - average time: " << (get_us(stop_time) - get_us(start_time)) / (loop_count * 1000) << " ms" << std::endl;
     profiler->StopProfiling();
 
     // Print profiling information
     auto profile_events = profiler->GetProfileEvents();
-    for (const auto &event : profile_events)
+    for (int i = 0; i < profile_events.size(); i++)
     {
-        std::cout << "Op: " << event->tag << ", Elapsed Time (us): " << event->elapsed_time << std::endl;
+        auto subgraph_index = profile_events[i]->extra_event_metadata;
+        auto op_index = profile_events[i]->event_metadata;
+        const auto subgraph = interpreter->subgraph(subgraph_index);
+        const auto node_and_registration = subgraph->node_and_registration(op_index);
+        const TfLiteRegistration registration = node_and_registration->second;
+        PrintProfilingInfo(profile_events[i], subgraph_index, op_index, registration);
     }
 
     // Get the output tensor
