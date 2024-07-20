@@ -53,35 +53,47 @@ int main(int argc, char *argv[])
     std::cout << "Number of inputs: " << inputs.size() << std::endl;
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
 
-    // Create XNNPACK delegate
-    bool use_xnnpack = false;
-    bool use_gpu = false;
+    // Configure delegates
+    tflite::tools::ToolParams params;
+    tflite::tools::ProvidedDelegateList delegate_list(&params);
+    std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
 
-    tflite::evaluation::TfLiteDelegatePtr delegate = tflite::tools::CreateNullDelegate();;
-    if (use_xnnpack)
+    // Add command line flags
+    delegate_list.AddAllDelegateParams();
+    bool xnnpack_enabled = false;
+    bool gpu_enabled = false;
+    int num_threads = 1;
+    std::vector<tflite::Flag> flags = { 
+        tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
+        tflite::Flag::CreateFlag("use_gpu", &gpu_enabled, "GPU delegate is enabled"),
+        };
+    delegate_list.AppendCmdlineFlags(flags);
+
+    // Check configured delegates and setup them
+    if (params.HasParam("use_xnnpack"))
     {
-        delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
-        std::cout << "XNNPACK delegate is used." << std::endl;
-    }
-    else if (use_gpu)
-    {
-        delegate = tflite::evaluation::CreateGPUDelegate();
-        std::cout << "GPU delegate is used." << std::endl;
-    }
-    else
-    {
-        std::cout << "No delegate is used." << std::endl;
+        params.Set<bool>("use_xnnpack", true);
+        params.Set<int32_t>("num_threads", num_threads);
     }
 
-    if (delegate)
+    if (params.HasParam("use_gpu"))
     {
-        if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk)
+        params.Set<bool>("use_gpu", true);
+    }
+
+    delegates = delegate_list.CreateAllRankedDelegates();
+    std::cout << "Number of delegates: " << delegates.size() << std::endl;
+    for (auto &delegate : delegates)
+    {
+        const auto name = delegate.provider->GetName();
+        std::cout << "Delegate: " << name << ", status: ";
+        if (kTfLiteOk == interpreter->ModifyGraphWithDelegate(std::move(delegate.delegate)))
         {
-            std::cout << "Failed to apply delegate" << std::endl;
+            std::cout << " added" << std::endl;
         }
         else
         {
-            std::cout << "Applied delegate" << std::endl;
+            std::cerr << " not added" << std::endl;
         }
     }
 

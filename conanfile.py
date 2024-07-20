@@ -11,7 +11,7 @@ class TambuaRecipe(ConanFile):
 
     def requirements(self):
         self.requires("abseil/20230125.3")
-        self.requires("tensorflow-lite/2.10.0")
+        self.requires("tensorflow-lite/2.10.0", options={"with_xnnpack": True})
     
     def build(self):
         cmake = CMake(self)
@@ -27,5 +27,7 @@ class TambuaRecipe(ConanFile):
         deps.generate()
         tc = CMakeToolchain(self, generator='Ninja')
         tc.preprocessor_definitions["TFLITE_PROFILING_ENABLED"] = "ON"
+        tc.preprocessor_definitions["TFLITE_ENABLE_XNNPACK"] = "ON"
+        tc.preprocessor_definitions["TFLITE_ENABLE_GPU"] = "ON"
         tc.user_presets_path = False
         tc.generate()
