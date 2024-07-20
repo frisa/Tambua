@@ -11,6 +11,10 @@
         {
             "name": "application",
             "path": "Applications/ConsoleClassifier",
+        },
+        {
+            "name": "application_qt",
+            "path": "Applications/QtClassifier",
         }
     ],
     "launch": {
