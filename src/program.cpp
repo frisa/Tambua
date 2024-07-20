@@ -75,10 +75,18 @@ int main(int argc, char *argv[])
         params.Set<bool>("use_xnnpack", true);
         params.Set<int32_t>("num_threads", num_threads);
     }
+    else
+    {
+        std::cout << "XNNPACK delegate is not enabled" << std::endl;
+    }
 
     if (params.HasParam("use_gpu"))
     {
         params.Set<bool>("use_gpu", true);
+    }
+    else
+    {
+        std::cout << "GPU delegate is not enabled" << std::endl;
     }
 
     delegates = delegate_list.CreateAllRankedDelegates();
