@@ -1,0 +1,105 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": ".",
+        },
+        {
+            "name": "library",
+            "path": "Libraries/Classifier",
+        },
+        {
+            "name": "application",
+            "path": "Applications/ConsoleClassifier",
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug: ClassifierConsole",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug/Applications/ConsoleClassifier/tambua-console",
+                "args": [
+                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/uniform.bmp",
+                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/mobilenet_quant.tflite",
+                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/labels.txt"
+                ],
+                "stopAtEntry": false,
+                "cwd": "/",
+                "MIMode": "gdb",
+                "environment": [],
+                "externalConsole": false,
+                "preLaunchTask": "build debug",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            },
+        ]
+    },
+    "settings": {
+        // CMake
+        "cmake.generator": "Ninja",
+        "cmake.sourceDirectory": "${workspaceFolder}",
+        "cmake.configureOnEdit": true,
+        "cmake.configureOnOpen": true,
+        "cmake.saveBeforeBuild": true,
+        "cmake.useCMakePresets": "always",
+        "cmake.options.statusBarVisibility": "compact",
+        "cmake.clearOutputBeforeBuild": true,
+        // Editor
+        "editor.formatOnSave": true,
+        "editor.renderWhitespace": "all",
+        "extensions.ignoreRecommendations": true,
+        // Files
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "files.trimFinalNewlines": true,
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "install debug",
+                "type": "shell",
+                "group": "build",
+                "command": "./Assets/Scripts/install_preset.sh linux-debug",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "install release",
+                "type": "shell",
+                "group": "build",
+                "command": "./Assets/Scripts/install_preset.sh linux-release",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "build debug",
+                "type": "shell",
+                "group": "build",
+                "command": "./Assets/Scripts/build_preset.sh conan-debug",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            }
+        ]
+    }
+}

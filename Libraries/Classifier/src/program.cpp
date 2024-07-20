@@ -19,7 +19,7 @@
 #include "tensorflow/lite/tools/evaluation/utils.h"
 #include "tensorflow/lite/profiling/profiler.h"
 
-int main(int argc, char *argv[])
+int DoClassification(int argc, char *argv[])
 {
     // Check the arguments
     if (argc != 4)
@@ -60,13 +60,13 @@ int main(int argc, char *argv[])
 
     // Add command line flags
     delegate_list.AddAllDelegateParams();
-    bool xnnpack_enabled = false;
-    bool gpu_enabled = false;
+    bool xnnpack_enabled = true;
+    bool gpu_enabled = true;
     int num_threads = 1;
-    std::vector<tflite::Flag> flags = { 
+    std::vector<tflite::Flag> flags = {
         tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
         tflite::Flag::CreateFlag("use_gpu", &gpu_enabled, "GPU delegate is enabled"),
-        };
+    };
     delegate_list.AppendCmdlineFlags(flags);
 
     // Check configured delegates and setup them

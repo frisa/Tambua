@@ -9,5 +9,5 @@ compiler.threads=None
 compiler.exception=None
 compiler.coverage=None
 compiler.libcxxdebug=None
-os=Linux   
+os=Linux
 os.distro=ubuntu_22.04
