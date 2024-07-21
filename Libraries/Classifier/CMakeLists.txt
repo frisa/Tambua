@@ -29,9 +29,6 @@ list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/profiling/profile_summary
 # Add delegate for XNNPACK
 list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/xnnpack_delegate_provider.cc)
 
-# Add delegate for GPU
-list(APPEND SRC_FILES ${TF_SOURCE_DIR}/tensorflow/lite/tools/delegates/gpu_delegate_provider.cc)
-
 # Add executable
 add_library(${PROJECT_NAME} ${SRC_FILES})
 
