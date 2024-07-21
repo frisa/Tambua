@@ -11,6 +11,9 @@ It tries to install them by apt but it has not permissions to it
 
 Solution: Run the conan install command with sudo in fist run to install the required packages
 ** remember the conan configuration will be in root folder in this case so transfere your conan configuration to the root folder
+----
+sudo conan install conanfile.py --output-folder=./build/$preset --build=missing --profile=$preset --profile:build=linux-release -c tools.system.package_manager:mode=install
+----
 
 ### Qt installation issues
 
@@ -24,7 +27,7 @@ sudo apt install llvm
 sudo apt install libclang-dev
 ----
 
-2. The build faiis as it build will all available cores
+2. The build fails as it build will all available cores
 
 Solution 1: Limit the number of cores used by the build process
 Meanwhile, and for special cases, tools.cpu_count() is the way to manage it, because it will detect cores and also is user-configurable in conan.conf and with environment variables.
@@ -37,4 +40,11 @@ Do not specify= will use all the cores
 Solution 2: Run the build manually
 ----
 cmake --build "/home/jan/.conan2/p/b/qtf3b548ccb1889/b/build/Debug" -- -j4
+----
+
+NOTE: Disable hibernation during the build process:
+
+----
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+-- unmask --
 ----
