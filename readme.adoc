@@ -7,8 +7,9 @@ The repository contains following applications:
 * Classifier Console - command line for classifier library
 * Qt application - UI application for classifier library
 
-NOTE: XNNPACK is currently enabled by default 
-NOTE: Profiling is enabled by default
+notes:
+* XNNPACK is currently enabled by default 
+* Profiling is enabled by default
 
 ## Example of Qt application 
 
