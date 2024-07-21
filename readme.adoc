@@ -13,7 +13,7 @@ NOTE: The XNNPACK is currently enabled by default and profiling is enabled by de
 
 The Footer of the application contains the classified object "Bernese mountain dog"
 
-image::Data/Application.png[AppllicationQt main window]
+image::Data/ApplicationQt.png[AppllicationQt main window]
 
 Console application
 image::Data/Application.png[Appllication main window]
