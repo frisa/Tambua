@@ -75,11 +75,18 @@
                 "group": "build",
                 "command": "./Assets/Scripts/install_preset.sh linux-debug",
                 "options": {
-                    "cwd": "${workspaceFolder}"
+                    "args": [
+                        "linux-debug",
+                        "-j4"
+                    ],
+                    "cwd": "${workspaceFolder}",
+                    "env": {
+                        "CONAN_CPU_COUNT": "4"
+                    }
                 },
                 "problemMatcher": [
                     "$gcc"
-                ]
+                ],
             },
             {
                 "label": "install release",

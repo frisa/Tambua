@@ -23,3 +23,18 @@ Solution 1: Install the required version of LLVM
 sudo apt install llvm
 sudo apt install libclang-dev
 ----
+
+2. The build faiis as it build will all available cores
+
+Solution 1: Limit the number of cores used by the build process
+Meanwhile, and for special cases, tools.cpu_count() is the way to manage it, because it will detect cores and also is user-configurable in conan.conf and with environment variables.
+----
+env var CONAN_CPU_COUNT
+cpu_count var in conan.conf
+Do not specify= will use all the cores
+----
+
+Solution 2: Run the build manually
+----
+cmake --build "/home/jan/.conan2/p/b/qtf3b548ccb1889/b/build/Debug" -- -j4
+----
