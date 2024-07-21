@@ -17,11 +17,12 @@ class TambuaRecipe(ConanFile):
             "with_nnapi": False,
             "with_xnnpack": True
             })
-        self.requires("qt/5.15.14", options={
+        self.requires("qt/6.7.1", options={
             "openssl": False,
             "shared": False,
             "with_pq": False,
             "with_sqlite3": False,
+            "multiconfiguration": False,
             "with_md4c": False,
             "with_odbc": False,
             "with_pcre2": True,

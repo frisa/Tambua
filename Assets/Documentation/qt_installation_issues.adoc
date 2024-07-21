@@ -1,0 +1,17 @@
+:toc:
+
+## Configuration issues
+
+here are some common issues that you may encounter when installing Qt: self.requires("qt/6.7.1")
+
+### Qt installation issues
+
+1. The imported target "clangBasic" references the file "/usr/lib/llvm-18/lib/libclangBasic.a"
+
+solution description: link:https://askubuntu.com/questions/1220739/llvm-dev-package-missing-libclangbasic[AskUbuntu]
+
+Solution 1: Install the required version of LLVM
+----
+sudo apt install llvm
+sudo apt install libclang-dev
+----
