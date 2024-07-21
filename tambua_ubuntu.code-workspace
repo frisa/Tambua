@@ -26,9 +26,9 @@
                 "request": "launch",
                 "program": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug/Applications/ConsoleClassifier/tambua-console",
                 "args": [
-                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/uniform.bmp",
-                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/mobilenet_quant.tflite",
-                    "/home/jan/Repositories/gmat-system1600-classifier-service-lib/Doc/Data/labels.txt"
+                    "/home/jan/Repositories/Tambua/Data/data/uniform.bmp",
+                    "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite",
+                    "/home/jan/Repositories/Tambua/Data/data/labels.txt"
                 ],
                 "stopAtEntry": false,
                 "cwd": "/",
@@ -93,10 +93,13 @@
                 "group": "build",
                 "command": "./Assets/Scripts/install_preset.sh",
                 "args": [
-                        "linux-release",
-                    ],
+                    "linux-release",
+                ],
                 "options": {
-                    "cwd": "${workspaceFolder}"
+                    "cwd": "${workspaceFolder}",
+                    "env": {
+                        "CONAN_CPU_COUNT": "4"
+                    }
                 },
                 "problemMatcher": [
                     "$gcc"
@@ -106,7 +109,10 @@
                 "label": "build debug",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/build_preset.sh conan-debug",
+                "command": "./Assets/Scripts/build_preset.sh",
+                "args": [
+                    "conan-debug",
+                ],
                 "options": {
                     "cwd": "${workspaceFolder}"
                 },
