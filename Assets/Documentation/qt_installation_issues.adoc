@@ -4,6 +4,14 @@
 
 here are some common issues that you may encounter when installing Qt: self.requires("qt/6.7.1")
 
+### Qt apt packages issues
+
+The conan dependency manager may not be able to find the required APT packages on the Ubuntu.
+It tries to install them by apt but it has not permissions to it
+
+Solution: Run the conan install command with sudo in fist run to install the required packages
+** remember the conan configuration will be in root folder in this case so transfere your conan configuration to the root folder
+
 ### Qt installation issues
 
 1. The imported target "clangBasic" references the file "/usr/lib/llvm-18/lib/libclangBasic.a"
