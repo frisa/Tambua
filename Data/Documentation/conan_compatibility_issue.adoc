@@ -1,0 +1,35 @@
+:toc:
+
+## Conan installation to virtual environment
+
+To ensure the independence on the host conan version there is option to install the conan to the virtual environmen like this:
+----
+python3 -mvenv venv
+source ./venv/bin/activate
+pip install --upgrade pip setuptools wheel pipenv
+pip install conan==1.61.0
+----
+
+## Fix: ModuleNotFoundError: No module named 'imp'
+
+If you face the error message there is compatibility issue between conan 1.x and python 3.12
+please replase following lines in:
+venv/lib/python3.12/site-packages/conans/client/loader.py"
+
+----
+import importlib
+..
+def load_module(name, filepath):
+    spec = importlib.util.spec_from_file_location(name, filepath)
+    if spec is None:
+        raise ImportError(f"Can't find module {name} at {filepath}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+..
+    # FIXME: imp is deprecated in favour of implib
+    #loaded = importlib.load_source(module_id, conan_file_path)
+    loaded = load_module(module_id, conan_file_path)
+..
+----

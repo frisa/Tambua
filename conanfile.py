@@ -11,8 +11,10 @@ class TambuaRecipe(ConanFile):
 
     def requirements(self):
         self.requires("abseil/20230125.3")
-        self.requires("tensorflow-lite/2.10.0", options={"with_xnnpack": True})
-    
+        self.requires("tensorflow-lite/2.10.0", options={
+            "with_xnnpack": True
+            })
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()

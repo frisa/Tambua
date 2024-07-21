@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>resources/world.png</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>components/Form.qml</file>
+        <file>components/Main.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,19 @@
+:toc:
+
+## Overview
+
+Delegates enable hardware acceleration of TensorFlow Lite models by leveraging on-device accelerators such as the GPU and Digital Signal Processor (DSP).
+By default, TensorFlow Lite utilizes CPU kernels that are optimized for the ARM Neon instruction set link:https://developer.arm.com/documentation/den0024/a/AArch64-Floating-point-and-NEON[ARMv8 NEON]. However, the CPU is a multi-purpose processor that isn't necessarily optimized for the heavy arithmetic typically found in Machine Learning models.
+see general overview link:https://www.tensorflow.org/lite/performance/delegates[Tensorflow Lite page]
+
+## Delegates
+
+* XNNPACK - multiplatform optinalization
+** Description: link:https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/delegates/xnnpack/README.md[GitHub]
+* GPU - multiplatform
+* NNAPI - for Android devices
+* Hexagon - for old Android devices
+* CoreML - for iOS devices
+* Flex - for Flex delegate
+* NPU - Custom delegate
+** Implementing Custom delegate: link:https://www.tensorflow.org/lite/performance/implementing_delegate?_gl=1*1edow21*_up*MQ..*_ga*MTg5NDUzMjI2My4xNzIxMjk5Njcx*_ga_W0YLR4190T*MTcyMTI5OTY3MC4xLjAuMTcyMTI5OTY3MC4wLjAuMA..[Instructions]

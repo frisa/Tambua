@@ -4,33 +4,33 @@
         "conan": {}
     },
     "include": [
-        "build/Debug/generators/CMakePresets.json",
-        "build/Release/generators/CMakePresets.json"
+        "build/linux-debug/build/Debug/generators/CMakePresets.json",
+        "build/linux-release/build/Release/generators/CMakePresets.json"
     ],
     "configurePresets": [
         {
-            "name": "vs-debug",
-            "displayName": "'debug' config",
-            "description": "'Debug' configure using 'Ninja' generator",
+            "name": "debug",
+            "displayName": "'debug'",
             "generator": "Ninja",
             "cacheVariables": {
                 "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
                 "CMAKE_BUILD_TYPE": "Debug"
             },
-            "toolchainFile": "${sourceDir}/build/Debug/generators/conan_toolchain.cmake",
-            "binaryDir": "${sourceDir}/build/Debug"
-        },
+            "toolchainFile": "build/linux-debug/build/Debug/generators/conan_toolchain.cmake",
+            "binaryDir": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug"
+        }
+    ],
+    "buildPresets": [
         {
-            "name": "vs-release",
-            "displayName": "'release' config",
-            "description": "'Release' configure using 'Ninja' generator",
-            "generator": "Ninja",
-            "cacheVariables": {
-                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
-                "CMAKE_BUILD_TYPE": "Release"
-            },
-            "toolchainFile": "${sourceDir}/build/Release/generators/conan_toolchain.cmake",
-            "binaryDir": "${sourceDir}/build/Release"
+            "name": "debug",
+            "configurePreset": "debug",
+            "jobs": 8
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "cdebug",
+            "configurePreset": "debug"
         }
     ]
 }

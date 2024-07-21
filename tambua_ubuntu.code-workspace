@@ -1,0 +1,149 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": ".",
+        },
+        {
+            "name": "library",
+            "path": "Libraries/Classifier",
+        },
+        {
+            "name": "application",
+            "path": "Applications/ConsoleClassifier",
+        },
+        {
+            "name": "application_qt",
+            "path": "Applications/QtClassifier",
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug: ClassifierQt",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug/Applications/QtClassifier/tambua-qt",
+                "args": [
+                    "/home/jan/Repositories/Tambua/Data/data/uniform.bmp",
+                    "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite",
+                    "/home/jan/Repositories/Tambua/Data/data/labels.txt"
+                ],
+                "stopAtEntry": false,
+                "cwd": "/",
+                "MIMode": "gdb",
+                "environment": [],
+                "externalConsole": false,
+                "preLaunchTask": "build debug",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            },
+            {
+                "name": "Debug: ClassifierConsole",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug/Applications/ConsoleClassifier/tambua-console",
+                "args": [
+                    "/home/jan/Repositories/Tambua/Data/data/uniform.bmp",
+                    "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite",
+                    "/home/jan/Repositories/Tambua/Data/data/labels.txt"
+                ],
+                "stopAtEntry": false,
+                "cwd": "/",
+                "MIMode": "gdb",
+                "environment": [],
+                "externalConsole": false,
+                "preLaunchTask": "build debug",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            }
+        ]
+    },
+    "settings": {
+        // CMake
+        "cmake.generator": "Ninja",
+        "cmake.sourceDirectory": "${workspaceFolder}",
+        "cmake.configureOnEdit": true,
+        "cmake.configureOnOpen": true,
+        "cmake.saveBeforeBuild": true,
+        "cmake.useCMakePresets": "always",
+        "cmake.options.statusBarVisibility": "compact",
+        "cmake.clearOutputBeforeBuild": true,
+        // Editor
+        "editor.formatOnSave": true,
+        "editor.renderWhitespace": "all",
+        "extensions.ignoreRecommendations": true,
+        // Files
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "files.trimFinalNewlines": true,
+        "asciidoc.antora.enableAntoraSupport": false,
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "install debug",
+                "type": "shell",
+                "group": "build",
+                "command": "./Scripts/install_preset.sh",
+                "args": [
+                    "linux-debug",
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}",
+                    "env": {
+                        "CONAN_CPU_COUNT": "4"
+                    }
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ],
+            },
+            {
+                "label": "install release",
+                "type": "shell",
+                "group": "build",
+                "command": "./Scripts/install_preset.sh",
+                "args": [
+                    "linux-release",
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}",
+                    "env": {
+                        "CONAN_CPU_COUNT": "4"
+                    }
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            },
+            {
+                "label": "build debug",
+                "type": "shell",
+                "group": "build",
+                "command": "./Scripts/build_preset.sh",
+                "args": [
+                    "conan-debug",
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": [
+                    "$gcc"
+                ]
+            }
+        ]
+    }
+}

@@ -19,16 +19,10 @@
 #include "tensorflow/lite/tools/evaluation/utils.h"
 #include "tensorflow/lite/profiling/profiler.h"
 
-int main(int argc, char *argv[])
+std::string DoClassification(const std::string &imagePath, const std::string &modelPath, const std::string &labelsPath)
 {
-    // Check the arguments
-    if (argc != 4)
-    {
-        std::cerr << "Usage: " << argv[0] << "<bitmap file> <model file> <label file>" << std::endl;
-        return 1;
-    }
     // Load the model
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(argv[2]);
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(modelPath.c_str());
     CHECK_TRUE(model != nullptr);
 
     // Build the interpreter
@@ -40,7 +34,7 @@ int main(int argc, char *argv[])
 
     // Load the image
     int width{224}, height{224}, channels{3};
-    std::vector<uint8_t> bmp_bytes = read_bmp(argv[1], &width, &height, &channels);
+    std::vector<uint8_t> bmp_bytes = read_bmp(imagePath.c_str(), &width, &height, &channels);
     std::cout << "Image size: " << width << "x" << height << "x" << channels << std::endl;
 
     // Get the input tensor
@@ -53,55 +47,21 @@ int main(int argc, char *argv[])
     std::cout << "Number of inputs: " << inputs.size() << std::endl;
     std::cout << "Number of outputs: " << outputs.size() << std::endl;
 
-    // Configure delegates
-    tflite::tools::ToolParams params;
-    tflite::tools::ProvidedDelegateList delegate_list(&params);
-    std::vector<tflite::tools::ProvidedDelegateList::ProvidedDelegate> delegates;
-
-    // Add command line flags
-    delegate_list.AddAllDelegateParams();
-    bool xnnpack_enabled = false;
-    bool gpu_enabled = false;
-    int num_threads = 1;
-    std::vector<tflite::Flag> flags = { 
-        tflite::Flag::CreateFlag("use_xnnpack", &xnnpack_enabled, "XNNPACK delegate is enabled"),
-        tflite::Flag::CreateFlag("use_gpu", &gpu_enabled, "GPU delegate is enabled"),
-        };
-    delegate_list.AppendCmdlineFlags(flags);
-
-    // Check configured delegates and setup them
-    if (params.HasParam("use_xnnpack"))
+    // Create XNNPACK delegate
+    tflite::evaluation::TfLiteDelegatePtr delegate = tflite::evaluation::CreateXNNPACKDelegate(4);
+    if (!delegate)
     {
-        params.Set<bool>("use_xnnpack", true);
-        params.Set<int32_t>("num_threads", num_threads);
+        std::cout << "XNNPACK acceleration is unsupported on this platform.";
     }
     else
     {
-        std::cout << "XNNPACK delegate is not enabled" << std::endl;
-    }
-
-    if (params.HasParam("use_gpu"))
-    {
-        params.Set<bool>("use_gpu", true);
-    }
-    else
-    {
-        std::cout << "GPU delegate is not enabled" << std::endl;
-    }
-
-    delegates = delegate_list.CreateAllRankedDelegates();
-    std::cout << "Number of delegates: " << delegates.size() << std::endl;
-    for (auto &delegate : delegates)
-    {
-        const auto name = delegate.provider->GetName();
-        std::cout << "Delegate: " << name << ", status: ";
-        if (kTfLiteOk == interpreter->ModifyGraphWithDelegate(std::move(delegate.delegate)))
+        if (interpreter->ModifyGraphWithDelegate(std::move(delegate)) != kTfLiteOk)
         {
-            std::cout << " added" << std::endl;
+            std::cout << "Failed to apply XNNPACK delegate" << std::endl;
         }
         else
         {
-            std::cerr << " not added" << std::endl;
+            std::cout << "Applied XNNPACK delegate" << std::endl;
         }
     }
 
@@ -133,7 +93,7 @@ int main(int argc, char *argv[])
         if (interpreter->Invoke() != kTfLiteOk)
         {
             std::cerr << "Failed to invoke tflite!" << std::endl;
-            return 1;
+            return "Failed to invoke tflite!";
         }
         else
         {
@@ -149,7 +109,7 @@ int main(int argc, char *argv[])
         if (interpreter->Invoke() != kTfLiteOk)
         {
             std::cerr << "Failed to invoke tflite!" << std::endl;
-            return 1;
+            return "Failed to invoke tflite!";
         }
         else
         {
@@ -187,7 +147,7 @@ int main(int argc, char *argv[])
     // Get the labels
     std::vector<std::string> labels;
     size_t label_count;
-    get_label(argv[3], &labels, &label_count);
+    get_label(labelsPath.c_str(), &labels, &label_count);
     for (const auto &result : top_results)
     {
         const float confidence = result.first;
@@ -195,5 +155,5 @@ int main(int argc, char *argv[])
         std::cout << confidence << ": " << index << " " << labels[index] << std::endl;
     }
     interpreter.reset();
-    return 0;
+    return labels[top_results[0].second];
 }

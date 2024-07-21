@@ -1,6 +1,22 @@
 :toc:
-## Minimalistic application for clasification of BMP (8bit) files
-image::Application.png[Appllication main window]
+## Applications for clasification of BMP (8bit) files
+
+The repository contains following applications:
+
+* Classifier library - does the image classification using TensorFlowLite
+* Classifier Console - command line for classifier library
+* Qt application - UI application for classifier library
+
+NOTE: The XNNPACK is currently enabled by default and profiling is enabled by default
+
+## Example of Qt application 
+
+The Footer of the application contains the classified object "Bernese mountain dog"
+
+image::Data/Application.png[AppllicationQt main window]
+
+Console application
+image::Data/Application.png[Appllication main window]
 
 ## Links
 
