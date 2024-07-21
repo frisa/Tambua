@@ -1,3 +1,4 @@
 #pragma once
+#include <string>
 
-int DoClassification(int argc, char *argv[]);
+std::string DoClassification(const std::string &imagePath, const std::string &modelPath, const std::string &labelsPath);

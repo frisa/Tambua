@@ -19,16 +19,10 @@
 #include "tensorflow/lite/tools/evaluation/utils.h"
 #include "tensorflow/lite/profiling/profiler.h"
 
-int DoClassification(int argc, char *argv[])
+std::string DoClassification(const std::string &imagePath, const std::string &modelPath, const std::string &labelsPath)
 {
-    // Check the arguments
-    if (argc != 4)
-    {
-        std::cerr << "Usage: " << argv[0] << "<bitmap file> <model file> <label file>" << std::endl;
-        return 1;
-    }
     // Load the model
-    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(argv[2]);
+    std::unique_ptr<tflite::FlatBufferModel> model = tflite::FlatBufferModel::BuildFromFile(modelPath.c_str());
     CHECK_TRUE(model != nullptr);
 
     // Build the interpreter
@@ -40,7 +34,7 @@ int DoClassification(int argc, char *argv[])
 
     // Load the image
     int width{224}, height{224}, channels{3};
-    std::vector<uint8_t> bmp_bytes = read_bmp(argv[1], &width, &height, &channels);
+    std::vector<uint8_t> bmp_bytes = read_bmp(imagePath.c_str(), &width, &height, &channels);
     std::cout << "Image size: " << width << "x" << height << "x" << channels << std::endl;
 
     // Get the input tensor
@@ -99,7 +93,7 @@ int DoClassification(int argc, char *argv[])
         if (interpreter->Invoke() != kTfLiteOk)
         {
             std::cerr << "Failed to invoke tflite!" << std::endl;
-            return 1;
+            return "Failed to invoke tflite!";
         }
         else
         {
@@ -115,7 +109,7 @@ int DoClassification(int argc, char *argv[])
         if (interpreter->Invoke() != kTfLiteOk)
         {
             std::cerr << "Failed to invoke tflite!" << std::endl;
-            return 1;
+            return "Failed to invoke tflite!";
         }
         else
         {
@@ -153,7 +147,7 @@ int DoClassification(int argc, char *argv[])
     // Get the labels
     std::vector<std::string> labels;
     size_t label_count;
-    get_label(argv[3], &labels, &label_count);
+    get_label(labelsPath.c_str(), &labels, &label_count);
     for (const auto &result : top_results)
     {
         const float confidence = result.first;
@@ -161,5 +155,5 @@ int DoClassification(int argc, char *argv[])
         std::cout << confidence << ": " << index << " " << labels[index] << std::endl;
     }
     interpreter.reset();
-    return 0;
+    return labels[top_results[0].second];
 }

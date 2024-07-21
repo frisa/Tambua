@@ -24,7 +24,7 @@ ApplicationWindow {
     header: ToolBar {
         RowLayout {
             ToolButton {
-                text: "Load Model"
+                text: "Open Model"
             }
             ToolButton {
                 text: "Open Image"

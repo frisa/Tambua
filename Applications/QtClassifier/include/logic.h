@@ -5,6 +5,7 @@ class Logic : public QObject
 {
     Q_OBJECT
 
+public:
     QString getParameter1() const;
     void setParameter1(const QString &value);
 
@@ -17,7 +18,6 @@ class Logic : public QObject
     QString getParameter4() const;
     void setParameter4(const QString &value);
 
-public:
     Q_PROPERTY(QString parameter1 READ getParameter1 WRITE setParameter1 NOTIFY parameterChanged1)
     Q_PROPERTY(QString parameter2 READ getParameter2 WRITE setParameter2 NOTIFY parameterChanged2)
     Q_PROPERTY(QString parameter3 READ getParameter3 WRITE setParameter3 NOTIFY parameterChanged3)
