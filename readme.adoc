@@ -7,7 +7,8 @@ The repository contains following applications:
 * Classifier Console - command line for classifier library
 * Qt application - UI application for classifier library
 
-NOTE: The XNNPACK is currently enabled by default and profiling is enabled by default
+NOTE: XNNPACK is currently enabled by default 
+NOTE: Profiling is enabled by default
 
 ## Example of Qt application 
 
@@ -15,7 +16,7 @@ The Footer of the application contains the classified object "Bernese mountain d
 
 image::Data/ApplicationQt.png[AppllicationQt main window]
 
-Console application
+## Console application
 image::Data/Application.png[Appllication main window]
 
 ## Links
