@@ -11,8 +11,25 @@ class TambuaRecipe(ConanFile):
 
     def requirements(self):
         self.requires("abseil/20230125.3")
-        self.requires("tensorflow-lite/2.10.0", options={"with_xnnpack": True})
-        self.requires("qt/6.7.1")
+        self.requires("tensorflow-lite/2.12.0", options={
+            "with_ruy": False,
+            "with_mmap": False,
+            "with_nnapi": False,
+            "with_xnnpack": True
+            })
+        self.requires("qt/5.15.14", options={
+            "openssl": False,
+            "shared": False,
+            "with_pq": False,
+            "with_sqlite3": False,
+            "with_md4c": False,
+            "with_odbc": False,
+            "with_pcre2": True,
+            "with_libpng": False,
+            "with_freetype": False,
+            "with_fontconfig": False,
+            "with_harfbuzz": False,
+            })
 
     def build(self):
         cmake = CMake(self)
