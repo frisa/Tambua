@@ -1,6 +1,6 @@
 :toc:
 ## Minimalistic application for clasification of BMP (8bit) files
-image::Assets/Application.png[Appllication main window]
+image::Data/Application.png[Appllication main window]
 
 ## Links
 

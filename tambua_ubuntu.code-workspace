@@ -73,11 +73,11 @@
                 "label": "install debug",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/install_preset.sh",
+                "command": "./Scripts/install_preset.sh",
+                "args": [
+                    "linux-debug",
+                ],
                 "options": {
-                    "args": [
-                        "linux-debug",
-                    ],
                     "cwd": "${workspaceFolder}",
                     "env": {
                         "CONAN_CPU_COUNT": "4"
@@ -91,7 +91,7 @@
                 "label": "install release",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/install_preset.sh",
+                "command": "./Scripts/install_preset.sh",
                 "args": [
                     "linux-release",
                 ],
@@ -109,7 +109,7 @@
                 "label": "build debug",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/build_preset.sh",
+                "command": "./Scripts/build_preset.sh",
                 "args": [
                     "conan-debug",
                 ],
