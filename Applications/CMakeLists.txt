@@ -1,1 +1,2 @@
 add_subdirectory(ConsoleClassifier)
+add_subdirectory(QtClassifier)
