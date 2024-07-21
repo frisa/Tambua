@@ -17,20 +17,6 @@ class TambuaRecipe(ConanFile):
             "with_nnapi": False,
             "with_xnnpack": True
             })
-        self.requires("qt/6.7.1", options={
-            "openssl": False,
-            "shared": False,
-            "with_pq": False,
-            "with_sqlite3": False,
-            "multiconfiguration": False,
-            "with_md4c": False,
-            "with_odbc": False,
-            "with_pcre2": True,
-            "with_libpng": False,
-            "with_freetype": False,
-            "with_fontconfig": False,
-            "with_harfbuzz": False,
-            })
 
     def build(self):
         cmake = CMake(self)

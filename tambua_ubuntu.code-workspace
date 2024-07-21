@@ -73,11 +73,10 @@
                 "label": "install debug",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/install_preset.sh linux-debug",
+                "command": "./Assets/Scripts/install_preset.sh",
                 "options": {
                     "args": [
                         "linux-debug",
-                        "-j4"
                     ],
                     "cwd": "${workspaceFolder}",
                     "env": {
@@ -92,7 +91,10 @@
                 "label": "install release",
                 "type": "shell",
                 "group": "build",
-                "command": "./Assets/Scripts/install_preset.sh linux-release",
+                "command": "./Assets/Scripts/install_preset.sh",
+                "args": [
+                        "linux-release",
+                    ],
                 "options": {
                     "cwd": "${workspaceFolder}"
                 },
