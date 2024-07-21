@@ -46,7 +46,7 @@ void Logic::setParameter4(const QString &value)
 
 Logic::Logic(QObject *parent) : QObject(parent)
 {
-    m_parameter1 = "/home/jan/Repositories/Tambua/Data/data/uniform.bmp";
+    m_parameter1 = "/home/jan/Repositories/Tambua/Data/data/dog.bmp";
     m_parameter2 = "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite";
     m_parameter3 = "/home/jan/Repositories/Tambua/Data/data/labels.txt";
     m_parameter4 = "Not Classified";

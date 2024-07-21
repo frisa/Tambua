@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.15
 
 ApplicationWindow {
     visible: true
-    width: 600
-    height: 200
+    width: 700
+    height: 280
     title: "Classifier"
     menuBar: MenuBar {
         Menu {
