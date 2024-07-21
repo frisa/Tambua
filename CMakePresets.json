@@ -6,5 +6,31 @@
     "include": [
         "build/linux-debug/build/Debug/generators/CMakePresets.json",
         "build/linux-release/build/Release/generators/CMakePresets.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "'debug'",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "toolchainFile": "build/linux-debug/build/Debug/generators/conan_toolchain.cmake",
+            "binaryDir": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug",
+            "jobs": 8
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "cdebug",
+            "configurePreset": "debug"
+        }
     ]
 }

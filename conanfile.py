@@ -11,10 +11,7 @@ class TambuaRecipe(ConanFile):
 
     def requirements(self):
         self.requires("abseil/20230125.3")
-        self.requires("tensorflow-lite/2.12.0", options={
-            "with_ruy": False,
-            "with_mmap": False,
-            "with_nnapi": False,
+        self.requires("tensorflow-lite/2.10.0", options={
             "with_xnnpack": True
             })
 
