@@ -21,7 +21,6 @@ public:
 
 public:
     explicit Logic(QObject *parent = nullptr);
-    virtual ~Logic() {};
 
 signals:
     void parameterChanged1();

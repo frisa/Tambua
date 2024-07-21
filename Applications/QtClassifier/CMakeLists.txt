@@ -11,6 +11,7 @@ ENDIF()
 
 # Find packages
 find_package(Threads REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 
@@ -19,17 +20,21 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(PROJECT_SOURCES
-    src/logic.cpp
     src/main.cpp
+    src/logic.cpp
     resources.qrc
     )
 
+set(PROJECT_INCLUDES
+    include/logic.h
+    )
 # Add the Qt executable
 qt_standard_project_setup(REQUIRES 6.5)
-qt6_add_executable(${EXECUTABLE_NAME} ${PROJECT_SOURCES})
+qt6_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_INCLUDES})
 
-target_link_libraries(${EXECUTABLE_NAME}
+target_link_libraries(${PROJECT_NAME}
     PRIVATE
+        Qt6::Core
         Qt6::Gui
         Qt6::Quick
     )
