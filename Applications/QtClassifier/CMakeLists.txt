@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-set(EXECUTABLE_NAME "tambua-qt-classifier")
+set(EXECUTABLE_NAME "tambua-qt")
 project(${EXECUTABLE_NAME})
 
 # Setup paths

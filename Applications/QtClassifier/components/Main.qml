@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.15
 
 ApplicationWindow {
     visible: true
-    width: 720
-    height: 520
+    width: 600
+    height: 200
     title: "Classifier"
     menuBar: MenuBar {
         Menu {
@@ -33,22 +33,19 @@ ApplicationWindow {
                 text: "Open Labels"
             }
             ToolButton {
-                text: "Classify Image"
-            }
-            ToolButton {
                 text: "Exit"
                 onClicked: Qt.quit();
             }
         }
     }
     footer: Label {
-        text: "Location: " + sensorPage.sensorLocation.latitude + ", " + sensorPage.sensorLocation.longitude
+        text: "Result: " + logic.parameter4
     }
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: Sensor {
-            id: sensorPage
+        initialItem: Form {
+            id: classifierForm
         }
     }
 }

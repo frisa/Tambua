@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QIcon>
+#include <iostream>
 
 #include "../include/logic.h"
 
@@ -13,8 +14,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     Logic logicModel;
+
     const QUrl url(QStringLiteral("qrc:/qml/components/Main.qml"));
     engine.rootContext()->setContextProperty("logic", &logicModel);
+    engine.connect(&logicModel, &Logic::doClassification, [&logicModel]()
+                   { std::cout << "Classify in internal classifier: " << std::endl; });
     engine.load(url);
     return app.exec();
 }

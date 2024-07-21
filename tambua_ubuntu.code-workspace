@@ -21,6 +21,30 @@
         "version": "0.2.0",
         "configurations": [
             {
+                "name": "Debug: ClassifierQt",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "/home/jan/Repositories/Tambua/build/linux-debug/build/Debug/Applications/QtClassifier/tambua-qt",
+                "args": [
+                    "/home/jan/Repositories/Tambua/Data/data/uniform.bmp",
+                    "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite",
+                    "/home/jan/Repositories/Tambua/Data/data/labels.txt"
+                ],
+                "stopAtEntry": false,
+                "cwd": "/",
+                "MIMode": "gdb",
+                "environment": [],
+                "externalConsole": false,
+                "preLaunchTask": "build debug",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "text": "-enable-pretty-printing",
+                        "ignoreFailures": true
+                    }
+                ]
+            },
+            {
                 "name": "Debug: ClassifierConsole",
                 "type": "cppdbg",
                 "request": "launch",
@@ -43,7 +67,7 @@
                         "ignoreFailures": true
                     }
                 ]
-            },
+            }
         ]
     },
     "settings": {

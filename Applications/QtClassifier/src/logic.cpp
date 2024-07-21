@@ -22,22 +22,39 @@ void Logic::setParameter2(const QString &value)
     emit parameterChanged2();
 }
 
-int Logic::getNumber1() const
+QString Logic::getParameter3() const
 {
-    return m_number1;
+    return m_parameter3;
 }
 
-void Logic::setNumber1(const int &value)
+void Logic::setParameter3(const QString &value)
 {
-    m_number1 = value;
-    emit numberChanged1();
+    m_parameter3 = value;
+    emit parameterChanged3();
+}
+
+QString Logic::getParameter4() const
+{
+    return m_parameter4;
+}
+
+void Logic::setParameter4(const QString &value)
+{
+    m_parameter4 = value;
+    emit parameterChanged4();
 }
 
 Logic::Logic(QObject *parent) : QObject(parent)
 {
-    m_parameter1 = "Image Name";
-    m_parameter2 = "Classification Output";
-    m_number1 = 10;
+    m_parameter1 = "/home/jan/Repositories/Tambua/Data/data/uniform.bmp";
+    m_parameter2 = "/home/jan/Repositories/Tambua/Data/data/mobilenet_quant.tflite";
+    m_parameter3 = "/home/jan/Repositories/Tambua/Data/data/labels.txt";
+    m_parameter4 = "Not Classified";
+}
+
+void Logic::DoClassificationCmd()
+{
+    emit doClassification();
 }
 
 // #include "logic.moc"
