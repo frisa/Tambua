@@ -1,0 +1,51 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": "."
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug",
+                "type": "cppdbg",
+                "request": "launch",
+                "program": "${workspaceRoot:root}/build/macos-debug/build/Debug/Applications/QtClassifier/tambua-qt",
+                "args": [
+                    "${workspaceRoot:root}/Data/data/uniform.bmp",
+                    "${workspaceRoot:root}/Data/data/mobilenet_quant.tflite",
+                    "${workspaceRoot:root}/Data/data/labels.txt"
+                ],
+                "stopAtEntry": false,
+                "cwd": "${workspaceRoot:root}",
+                "environment": [],
+                "externalConsole": false,
+                "MIMode": "lldb",
+                "preLaunchTask": "build"
+            }
+        ],
+        "compounds": []
+    },
+    "settings": {
+        // CMake
+        "cmake.generator": "Ninja",
+        "cmake.sourceDirectory": "${workspaceFolder}",
+        "cmake.configureOnEdit": true,
+        "cmake.configureOnOpen": true,
+        "cmake.saveBeforeBuild": true,
+        "cmake.useCMakePresets": "always",
+        "cmake.options.statusBarVisibility": "compact",
+        "cmake.clearOutputBeforeBuild": true,
+        // Editor
+        "editor.formatOnSave": true,
+        "editor.renderWhitespace": "all",
+        "extensions.ignoreRecommendations": true,
+        // Files
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true,
+        "files.trimFinalNewlines": true,
+        "asciidoc.antora.enableAntoraSupport": false,
+    },
+}
